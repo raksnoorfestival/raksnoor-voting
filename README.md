@@ -36,7 +36,7 @@ Os testes (`npm test`) usam as notas reais de 2025 (`tests/fixtures`).
 ## Onde vive
 
 - Código: GitHub `raksnoorfestival/raksnoor-voting`.
-- Base de dados: Neon (Postgres), base `raksnoor_voting` no projeto da loja.
+- Base de dados: Neon (Postgres), projeto `raksnoor-voting` na conta do festival.
 - Site: Vercel.
 
 ## Correr localmente
