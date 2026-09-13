@@ -1,0 +1,178 @@
+// Raks Noor Festival voting. One database, one festival per Event row.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Event {
+  id             String    @id @default(cuid())
+  name           String
+  startsAt       DateTime?
+  endsAt         DateTime?
+  isCurrent      Boolean   @default(false)
+  // Plain text on purpose: the organiser reads it back to put it on the TV.
+  publicPassword String?
+  createdAt      DateTime  @default(now())
+
+  levels       Level[]
+  categories   Category[]
+  participants Participant[]
+  judges       Judge[]
+  criteria     Criterion[]
+}
+
+// Amateur, Advanced, Professional, Master, Kids, Teens, Ladies, Groups.
+model Level {
+  id              String  @id @default(cuid())
+  eventId         String
+  name            String
+  sortOrder       Int     @default(0)
+  // Only levels with several categories crown a champion.
+  hasChampionship Boolean @default(false)
+
+  event                 Event                  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  categories            Category[]
+  championshipDecisions ChampionshipDecision[]
+
+  @@unique([eventId, name])
+}
+
+enum CategoryStatus {
+  DRAFT
+  OPEN
+  CLOSED
+}
+
+model Category {
+  id             String         @id @default(cuid())
+  eventId        String
+  levelId        String
+  name           String
+  sortOrder      Int            @default(0)
+  status         CategoryStatus @default(DRAFT)
+  // Results reach the public page only when the admin flips this.
+  resultsVisible Boolean        @default(false)
+
+  event   Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  level   Level        @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  entries Entry[]
+  sheets  JudgeSheet[]
+
+  @@unique([eventId, levelId, name])
+}
+
+model Participant {
+  id      String  @id @default(cuid())
+  eventId String
+  name    String
+  notes   String?
+
+  event                 Event                  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  entries               Entry[]
+  championshipDecisions ChampionshipDecision[]
+
+  @@unique([eventId, name])
+}
+
+// One participant dancing in one category. `number` is the running order
+// printed on the judges' paper sheets.
+model Entry {
+  id            String @id @default(cuid())
+  categoryId    String
+  participantId String
+  number        Int
+  // Set by the admin when every rule still leaves a tie. Lower goes first.
+  tieOrder      Int?
+
+  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  participant Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  scores      Score[]
+
+  @@unique([categoryId, participantId])
+}
+
+model Judge {
+  id           String  @id @default(cuid())
+  eventId      String
+  // Login is by name, not email: the organiser creates it and hands out the password.
+  name         String
+  passwordHash String
+  sortOrder    Int     @default(0)
+  active       Boolean @default(true)
+
+  event  Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  scores Score[]
+  sheets JudgeSheet[]
+
+  @@unique([eventId, name])
+}
+
+// Technique, Choreo & Musicality, Stage Presence, Originality, Image.
+// `priority` (1 = first) is the order used to break ties.
+model Criterion {
+  id        String @id @default(cuid())
+  eventId   String
+  name      String
+  maxPoints Int    @default(10)
+  priority  Int
+
+  event  Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  scores Score[]
+
+  @@unique([eventId, name])
+}
+
+model Score {
+  id          String   @id @default(cuid())
+  entryId     String
+  judgeId     String
+  criterionId String
+  value       Int
+  updatedAt   DateTime @updatedAt
+
+  entry     Entry     @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  judge     Judge     @relation(fields: [judgeId], references: [id], onDelete: Cascade)
+  criterion Criterion @relation(fields: [criterionId], references: [id], onDelete: Cascade)
+
+  @@unique([entryId, judgeId, criterionId])
+}
+
+// A judge marking a category as finished, so the admin sees who is done.
+model JudgeSheet {
+  id          String    @id @default(cuid())
+  categoryId  String
+  judgeId     String
+  submittedAt DateTime?
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  judge    Judge    @relation(fields: [judgeId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, judgeId])
+}
+
+// Manual order for a championship tie the rules could not break.
+model ChampionshipDecision {
+  id            String @id @default(cuid())
+  levelId       String
+  participantId String
+  tieOrder      Int
+
+  level       Level       @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  participant Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  @@unique([levelId, participantId])
+}

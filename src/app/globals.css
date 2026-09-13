@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-wine: #8b1e3f;
+  --color-wine-dark: #6d1730;
+  --color-wine-light: #f7e9ee;
+  --color-ink: #1c1c1e;
+  --color-paper: #f7f5f6;
+  --color-gold: #c9a24a;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Score buttons on tablets: big and unambiguous. */
+.score-btn {
+  @apply h-12 w-full min-w-0 rounded-lg border border-neutral-300 bg-white text-base font-semibold text-ink transition active:scale-95;
+}
+.score-btn[data-on="true"] {
+  @apply border-wine bg-wine text-white;
+}

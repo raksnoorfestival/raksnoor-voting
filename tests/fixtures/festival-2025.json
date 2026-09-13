@@ -1,0 +1,7043 @@
+{
+ "criteria": [
+  "Technique",
+  "Choreo & Musicality",
+  "Stage Presence",
+  "Originality",
+  "Image"
+ ],
+ "categories": [
+  {
+   "sheet": "A.Baladi",
+   "level": "Amateur",
+   "name": "Baladi",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Witt-Basel Helene",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Kateryna Repetska",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Leonor Rodrigues",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Adela Gómez",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Kateryna Repetska",
+    "Leonor Rodrigues",
+    "Witt-Basel Helene",
+    "Adela Gómez"
+   ]
+  },
+  {
+   "sheet": "A.Folklore",
+   "level": "Amateur",
+   "name": "Folklore",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Lana Cosme",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       8,
+       9,
+       9,
+       8
+      ],
+      [
+       8,
+       9,
+       9,
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Witt-Basel Helene",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       9,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Kateryna Repetska",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Kateryna Repetska",
+    "Lana Cosme",
+    "Witt-Basel Helene"
+   ]
+  },
+  {
+   "sheet": "A.DrumSolo",
+   "level": "Amateur",
+   "name": "Drum Solo",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Maysara(Sarah Guimard )",
+     "scores": [
+      [
+       7,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       9,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Patricia Handel-Czyz",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       9,
+       8,
+       9,
+       10
+      ],
+      [
+       8,
+       8,
+       8,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       10
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Patricia Jimenez",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       9,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       7
+      ],
+      [
+       8,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Lana Cosme",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       9,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       9,
+       8,
+       9,
+       9,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Kateryna Repetska",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       9,
+       8,
+       9,
+       9,
+       9
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Patricia Handel-Czyz",
+    "Lana Cosme",
+    "Kateryna Repetska",
+    "Patricia Jimenez",
+    "Maysara(Sarah Guimard )"
+   ]
+  },
+  {
+   "sheet": "A.Oriental",
+   "level": "Amateur",
+   "name": "Oriental",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Adela Gómez",
+     "scores": [
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Witt-Basel Helene",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Leonor Rodrigues",
+     "scores": [
+      [
+       8,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       7,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Patricia Handel-Czyz",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       7,
+       9
+      ],
+      [
+       8,
+       7,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Kateryna Repetska",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Patricia Jimenez",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 7,
+     "name": "Viviana Puerta",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 8,
+     "name": "Ania Grzywinska",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       7,
+       7,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 9,
+     "name": "Lana Cosme",
+     "scores": [
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       7,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 10,
+     "name": "Arijana Ranazadeh",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 11,
+     "name": "Itaf Ghebantani",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       7
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Patricia Handel-Czyz",
+    "Kateryna Repetska",
+    "Leonor Rodrigues",
+    "Patricia Jimenez",
+    "Ania Grzywinska",
+    "Adela Gómez",
+    "Witt-Basel Helene",
+    "Viviana Puerta",
+    "Lana Cosme",
+    "Arijana Ranazadeh",
+    "Itaf Ghebantani"
+   ]
+  },
+  {
+   "sheet": "A.Fusion",
+   "level": "Amateur",
+   "name": "Fusion",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Adela Gómez",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       6,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Patricia Handel-Czyz",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       10
+      ],
+      [
+       8,
+       8,
+       8,
+       9,
+       10
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Kateryna Repetska",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Patricia Jimenez",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       8,
+       7,
+       6
+      ],
+      [
+       8,
+       7,
+       9,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Patricia Handel-Czyz",
+    "Kateryna Repetska",
+    "Patricia Jimenez",
+    "Adela Gómez"
+   ]
+  },
+  {
+   "sheet": "AD.Oriental",
+   "level": "Advanced",
+   "name": "Oriental",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Amanda Engel",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       6,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Tania Canas",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       9,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       6
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       6
+      ],
+      [
+       9,
+       8,
+       8,
+       9,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Lemme Velleõu",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Maria Goldan",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Viktoria Nosovska-Harciarek",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Ana Nogueira",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 7,
+     "name": "Kalenda",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Kalenda",
+    "Maria Goldan",
+    "Amanda Engel",
+    "Lemme Velleõu",
+    "Ana Nogueira",
+    "Viktoria Nosovska-Harciarek",
+    "Tania Canas"
+   ]
+  },
+  {
+   "sheet": "AD.Improv",
+   "level": "Advanced",
+   "name": "Improvisation",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Cristina Martins",
+     "scores": [
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       5,
+       5,
+       5,
+       5,
+       6
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Kateryna Repetska",
+     "scores": [
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       7,
+       7,
+       9
+      ],
+      [
+       8,
+       7,
+       7,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Amanda Engel",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Ana Nogueira",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       9,
+       8
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Amanda Engel",
+    "Kateryna Repetska",
+    "Ana Nogueira",
+    "Cristina Martins"
+   ]
+  },
+  {
+   "sheet": "AD.Baladi",
+   "level": "Advanced",
+   "name": "Baladi",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Tania Canas",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       9,
+       8
+      ],
+      [
+       7,
+       6,
+       6,
+       7,
+       7
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Kalenda",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Duzy",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Amanda Engel",
+     "scores": [
+      [
+       9,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       9,
+       8,
+       9,
+       8,
+       9
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Kalenda",
+    "Amanda Engel",
+    "Tania Canas",
+    "Duzy"
+   ]
+  },
+  {
+   "sheet": "AD.drum solo",
+   "level": "Advanced",
+   "name": "Drum Solo",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Lemme Velleõu",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       9,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Cristina Martins",
+     "scores": [
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       5,
+       6,
+       6,
+       6,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Lemme Velleõu",
+    "Cristina Martins"
+   ]
+  },
+  {
+   "sheet": "AD.folklore",
+   "level": "Advanced",
+   "name": "Folklore",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Ana Nogueira",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       8,
+       9,
+       8,
+       9,
+       8
+      ],
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Duzy",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       8,
+       9,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Ana Nogueira",
+    "Duzy"
+   ]
+  },
+  {
+   "sheet": "AD.Fusion",
+   "level": "Advanced",
+   "name": "Fusion",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Viktoria Nosovska-Harciarek",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       7,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       10,
+       10,
+       10
+      ],
+      [
+       7,
+       7,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Maria Goldan",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       10,
+       8,
+       10,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Tania Canas",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Lemme Velleõu",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       9,
+       7,
+       8,
+       8,
+       7
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Cristina Martins",
+     "scores": [
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       5,
+       6,
+       5,
+       6
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Duzy",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       9,
+       9
+      ],
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Viktoria Nosovska-Harciarek",
+    "Tania Canas",
+    "Lemme Velleõu",
+    "Duzy",
+    "Maria Goldan",
+    "Cristina Martins"
+   ]
+  },
+  {
+   "sheet": "AD.Live Band",
+   "level": "Advanced",
+   "name": "Live Band",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Nur Zahira"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Amanda Engel",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       5,
+       5,
+       7,
+       5,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Kateryna Repetska",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Ana Nogueira",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Viktoria Nosovska-Harciarek",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Kateryna Repetska",
+    "Amanda Engel",
+    "Viktoria Nosovska-Harciarek",
+    "Ana Nogueira"
+   ]
+  },
+  {
+   "sheet": "P.Baladi",
+   "level": "Professional",
+   "name": "Baladi",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Bruna Araújo",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       6,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Melyssa Vargas",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Ana el Sayed",
+     "scores": [
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       7
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Aliaksandra Yermolenka",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Hanna Salg",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Karla Akel",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Melyssa Vargas",
+    "Karla Akel",
+    "Aliaksandra Yermolenka",
+    "Hanna Salg",
+    "Bruna Araújo",
+    "Ana el Sayed"
+   ]
+  },
+  {
+   "sheet": "P.Folklore",
+   "level": "Professional",
+   "name": "Folklore",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Susana Nunes",
+     "scores": [
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       7
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Magda Serôdio",
+     "scores": [
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Schirin Ghazivakili",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Aliaksandra Yermolenka",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       5,
+       5
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Adarrab Ghizlane",
+     "scores": [
+      [
+       8,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Bruna Araújo",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 7,
+     "name": "Munira Matthews",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       8,
+       8,
+       9,
+       9,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       9,
+       8
+      ],
+      [
+       7,
+       6,
+       8,
+       7,
+       7
+      ],
+      [
+       null,
+       null,
+       null,
+       null,
+       null
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Adarrab Ghizlane",
+    "Bruna Araújo",
+    "Munira Matthews",
+    "Schirin Ghazivakili",
+    "Aliaksandra Yermolenka",
+    "Susana Nunes",
+    "Magda Serôdio"
+   ]
+  },
+  {
+   "sheet": "P.Improv",
+   "level": "Professional",
+   "name": "Improvisation",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Rita Pereira",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       9
+      ],
+      [
+       8,
+       7,
+       7,
+       6,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Susana Nunes",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       6,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Magda Serôdio",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       6,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Adarrab Ghizlane",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Aliaksandra Yermolenka",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       7,
+       7,
+       8
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       6,
+       7
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Adarrab Ghizlane",
+    "Aliaksandra Yermolenka",
+    "Rita Pereira",
+    "Susana Nunes",
+    "Magda Serôdio"
+   ]
+  },
+  {
+   "sheet": "P.DrumSolo",
+   "level": "Professional",
+   "name": "Drum Solo",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Clara Lopes Didio",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Bruna Araújo",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Joana Zafirah",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       9,
+       8
+      ],
+      [
+       8,
+       8,
+       7,
+       8,
+       7
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       7,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Zohra",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       9,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Rita Pereira",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       9
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       7,
+       8,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Aliaksandra Yermolenka",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       9,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       7,
+       7,
+       6,
+       7
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Joana Zafirah",
+    "Rita Pereira",
+    "Aliaksandra Yermolenka",
+    "Clara Lopes Didio",
+    "Zohra",
+    "Bruna Araújo"
+   ]
+  },
+  {
+   "sheet": "P.Oriental",
+   "level": "Professional",
+   "name": "Oriental",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Karen Rodriguez",
+     "scores": [
+      [
+       9,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       7,
+       6,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Karla Akel",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Susana Nunes",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       7
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Micaela Cordeiro",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       8
+      ],
+      [
+       6,
+       7,
+       6,
+       7,
+       8
+      ],
+      [
+       5,
+       6,
+       6,
+       6,
+       7
+      ],
+      [
+       5,
+       6,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Bruna Araújo",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Zohra",
+     "scores": [
+      [
+       8,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 7,
+     "name": "Clara Didio Lopes",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 8,
+     "name": "Aliaksandra Yermolenka",
+     "scores": [
+      [
+       8,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 9,
+     "name": "Adarrab Ghizlane",
+     "scores": [
+      [
+       7,
+       8,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       6
+      ]
+     ]
+    },
+    {
+     "number": 10,
+     "name": "Doina Porojan",
+     "scores": [
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       6,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       6
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 11,
+     "name": "Rita Pereira",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       7
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 12,
+     "name": "Rita Crucio (Radiyah)",
+     "scores": [
+      [
+       8,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 13,
+     "name": "Andrea Cardenas",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       9,
+       8,
+       7,
+       8,
+       9
+      ],
+      [
+       8,
+       7,
+       7,
+       8,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 14,
+     "name": "Melyssa Vargas",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       7,
+       9,
+       7,
+       9
+      ],
+      [
+       9,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 15,
+     "name": "Joana Zafirah",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 16,
+     "name": "Munira Matthews",
+     "scores": [
+      [
+       9,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       8,
+       9,
+       9,
+       8
+      ],
+      [
+       7,
+       6,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       7
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Melyssa Vargas",
+    "Andrea Cardenas",
+    "Karen Rodriguez",
+    "Munira Matthews",
+    "Karla Akel",
+    "Clara Didio Lopes",
+    "Aliaksandra Yermolenka",
+    "Joana Zafirah",
+    "Rita Pereira",
+    "Rita Crucio (Radiyah)",
+    "Bruna Araújo",
+    "Zohra",
+    "Adarrab Ghizlane",
+    "Susana Nunes",
+    "Doina Porojan",
+    "Micaela Cordeiro"
+   ]
+  },
+  {
+   "sheet": "P. Fusion",
+   "level": "Professional",
+   "name": "Fusion",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Karen Rodriguez",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       7
+      ],
+      [
+       8,
+       8,
+       7,
+       8,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Karla Akel",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       6
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       6
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Zohra",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       6,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       6
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Inês Sousa (Jade)",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       6,
+       6
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       6,
+       5,
+       6
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Karen Rodriguez",
+    "Karla Akel",
+    "Zohra",
+    "Inês Sousa (Jade)"
+   ]
+  },
+  {
+   "sheet": "P. Live Band",
+   "level": "Professional",
+   "name": "Live Band",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Rita Pereira",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Eunice Xufre",
+     "scores": [
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       6,
+       6
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       7,
+       6,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Susana Nunes",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Bruna Araújo",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Karla Akel",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Adarrab Ghizlane",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       6,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       6,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 7,
+     "name": "Aliaksandra Yermolenka",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 8,
+     "name": "Munira Matthews",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       7,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Karla Akel",
+    "Aliaksandra Yermolenka",
+    "Munira Matthews",
+    "Bruna Araújo",
+    "Rita Pereira",
+    "Susana Nunes",
+    "Adarrab Ghizlane",
+    "Eunice Xufre"
+   ]
+  },
+  {
+   "sheet": "M.Baladi",
+   "level": "Master",
+   "name": "Baladi",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Daryna Ilchyshena",
+     "scores": [
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       6,
+       5
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       5
+      ],
+      [
+       8,
+       8,
+       7,
+       8,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Clara Irazábal",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Yana Holka",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       9,
+       8,
+       9,
+       9,
+       10
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Elisabetta Mancini",
+     "scores": [
+      [
+       10,
+       10,
+       9,
+       9,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Sara Olianas",
+     "scores": [
+      [
+       10,
+       10,
+       10,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Sara Olianas",
+    "Yana Holka",
+    "Elisabetta Mancini",
+    "Clara Irazábal",
+    "Daryna Ilchyshena"
+   ]
+  },
+  {
+   "sheet": "M.Folklore",
+   "level": "Master",
+   "name": "Folklore",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Daryna Ilchyshena",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Clara Irazábal",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Yana Holka",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Elisabetta Mancini",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       6,
+       7,
+       6,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Sara Olianas",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Daryna Ilchyshena",
+    "Yana Holka",
+    "Sara Olianas",
+    "Clara Irazábal",
+    "Elisabetta Mancini"
+   ]
+  },
+  {
+   "sheet": "M.Improv",
+   "level": "Master",
+   "name": "Improvisation",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Daryna Ilchyshena",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Clara Irazábal",
+     "scores": [
+      [
+       9,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Yana Holka",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       9
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Elisabetta Mancini",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       7,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Sara Olianas",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       10,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       7
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Daryna Ilchyshena",
+    "Yana Holka",
+    "Sara Olianas",
+    "Clara Irazábal",
+    "Elisabetta Mancini"
+   ]
+  },
+  {
+   "sheet": "M.DrumSolo",
+   "level": "Master",
+   "name": "Drum Solo",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Daryna Ilchyshena",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Clara Irazábal",
+     "scores": [
+      [
+       9,
+       8,
+       8,
+       9,
+       9
+      ],
+      [
+       8,
+       9,
+       8,
+       9,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       9,
+       8,
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Master Anandi Christavé",
+     "scores": [
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       6
+      ],
+      [
+       6,
+       6,
+       7,
+       7,
+       6
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Yana Holka",
+     "scores": [
+      [
+       9,
+       10,
+       10,
+       10,
+       9
+      ],
+      [
+       8,
+       8,
+       9,
+       9,
+       10
+      ],
+      [
+       9,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Elisabetta Mancini",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Sara Olianas",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       6
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       9,
+       9,
+       9,
+       8,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Yana Holka",
+    "Daryna Ilchyshena",
+    "Sara Olianas",
+    "Clara Irazábal",
+    "Elisabetta Mancini",
+    "Master Anandi Christavé"
+   ]
+  },
+  {
+   "sheet": "M.Oriental",
+   "level": "Master",
+   "name": "Oriental",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Daryna Ilchyshena",
+     "scores": [
+      [
+       10,
+       10,
+       10,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       7,
+       10
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Clara Irazábal",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Yana Holka",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Elisabetta Mancini",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ],
+      [
+       7,
+       9,
+       8,
+       9,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       7,
+       8,
+       8,
+       8,
+       7
+      ],
+      [
+       8,
+       9,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Ingridi Farah",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      [
+       8,
+       9,
+       8,
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Sara Olianas",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       10,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       9,
+       8,
+       9,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Daryna Ilchyshena",
+    "Sara Olianas",
+    "Yana Holka",
+    "Elisabetta Mancini",
+    "Clara Irazábal",
+    "Ingridi Farah"
+   ]
+  },
+  {
+   "sheet": "M.Live Band",
+   "level": "Master",
+   "name": "Live Band",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Daryna Ilchyshena",
+     "scores": [
+      [
+       9,
+       10,
+       9,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       8,
+       10
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       9,
+       8,
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Clara Irazábal",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Master Anandi Christavé",
+     "scores": [
+      [
+       7,
+       6,
+       6,
+       6,
+       7
+      ],
+      [
+       5,
+       5,
+       5,
+       5,
+       6
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      [
+       6,
+       6,
+       6,
+       7,
+       7
+      ],
+      [
+       6,
+       6,
+       6,
+       6,
+       7
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Yana Holka",
+     "scores": [
+      [
+       9,
+       8,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       9,
+       8,
+       8,
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 5,
+     "name": "Elisabetta Mancini",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       8,
+       8,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 6,
+     "name": "Ingridi Farah",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       7,
+       8,
+       7
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 7,
+     "name": "Sara Olianas",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       8,
+       7,
+       7,
+       6
+      ],
+      [
+       8,
+       7,
+       8,
+       7,
+       7
+      ],
+      [
+       8,
+       9,
+       8,
+       9,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Daryna Ilchyshena",
+    "Yana Holka",
+    "Clara Irazábal",
+    "Sara Olianas",
+    "Elisabetta Mancini",
+    "Ingridi Farah",
+    "Master Anandi Christavé"
+   ]
+  },
+  {
+   "sheet": " Kids",
+   "level": "Kids",
+   "name": "Kids",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Carlota Vilela",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       9,
+       8,
+       10,
+       8,
+       10
+      ],
+      [
+       8,
+       8,
+       8,
+       9,
+       9
+      ],
+      [
+       8,
+       9,
+       8,
+       8,
+       10
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Bia Johari",
+     "scores": [
+      [
+       7,
+       8,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       9,
+       9,
+       10
+      ],
+      [
+       8,
+       8,
+       8,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       10,
+       10
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Lara Naadirah",
+     "scores": [
+      [
+       7,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       10
+      ],
+      [
+       7,
+       7,
+       7,
+       8,
+       8
+      ],
+      [
+       8,
+       9,
+       8,
+       10,
+       10
+      ],
+      [
+       8,
+       8,
+       8,
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 4,
+     "name": "Ariel Noor",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       10,
+       10,
+       9,
+       9,
+       10
+      ],
+      [
+       10,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Ariel Noor",
+    "Bia Johari",
+    "Carlota Vilela",
+    "Lara Naadirah"
+   ]
+  },
+  {
+   "sheet": "Teens",
+   "level": "Teens",
+   "name": "Teens",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Sofia Perhulyak",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       7,
+       7,
+       7,
+       7,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       10
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Matilde Marcelino",
+     "scores": [
+      [
+       9,
+       8,
+       8,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       8,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       8,
+       9,
+       9
+      ],
+      [
+       10,
+       10,
+       9,
+       10,
+       10
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Matilde Marcelino",
+    "Sofia Perhulyak"
+   ]
+  },
+  {
+   "sheet": "Ladies",
+   "level": "Ladies",
+   "name": "Ladies",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "nur"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Sabrina Silvestre",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       7,
+       8,
+       9,
+       7,
+       9
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       10,
+       9,
+       9
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Marta Estevão",
+     "scores": [
+      [
+       8,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       7,
+       8,
+       9,
+       9,
+       7
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       8,
+       9,
+       10,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Claudia Rosado",
+     "scores": [
+      [
+       9,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       10
+      ],
+      [
+       9,
+       9,
+       9,
+       8,
+       9
+      ],
+      [
+       9,
+       8,
+       9,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Marta Estevão",
+    "Claudia Rosado",
+    "Sabrina Silvestre"
+   ]
+  },
+  {
+   "sheet": "Group.Junior",
+   "level": "Groups",
+   "name": "Junior",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Amirat",
+     "scores": [
+      [
+       7,
+       7,
+       9,
+       8,
+       8
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       10
+      ],
+      [
+       8,
+       8,
+       8,
+       9,
+       8
+      ],
+      [
+       8,
+       9,
+       10,
+       10,
+       10
+      ],
+      [
+       8,
+       8,
+       9,
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Dana Duo Dance",
+     "scores": [
+      [
+       8,
+       8,
+       9,
+       9,
+       9
+      ],
+      [
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       9,
+       9,
+       10,
+       10,
+       10
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       8
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Dana Duo Dance",
+    "Amirat"
+   ]
+  },
+  {
+   "sheet": "Group.Adult",
+   "level": "Groups",
+   "name": "Adult",
+   "judges": [
+    "Alessandra",
+    "Shahrzad",
+    "Viktoriia Bogonis",
+    "Amanda Rose",
+    "Mohamed Shahin"
+   ],
+   "entries": [
+    {
+     "number": 1,
+     "name": "Huriya",
+     "scores": [
+      [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      [
+       7,
+       7,
+       8,
+       9,
+       8
+      ],
+      [
+       8,
+       7,
+       8,
+       8,
+       7
+      ],
+      [
+       8,
+       9,
+       9,
+       10,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    },
+    {
+     "number": 2,
+     "name": "Estellas del Nilo",
+     "scores": [
+      [
+       8,
+       9,
+       8,
+       8,
+       9
+      ],
+      [
+       8,
+       8,
+       8,
+       8,
+       9
+      ],
+      [
+       9,
+       9,
+       8,
+       9,
+       9
+      ],
+      [
+       10,
+       10,
+       9,
+       9,
+       10
+      ],
+      [
+       9,
+       10,
+       9,
+       9,
+       10
+      ]
+     ]
+    },
+    {
+     "number": 3,
+     "name": "Bahirah",
+     "scores": [
+      [
+       7,
+       9,
+       9,
+       9,
+       8
+      ],
+      [
+       9,
+       9,
+       10,
+       10,
+       10
+      ],
+      [
+       8,
+       8,
+       9,
+       9,
+       8
+      ],
+      [
+       8,
+       9,
+       9,
+       9,
+       9
+      ],
+      [
+       9,
+       9,
+       9,
+       9,
+       9
+      ]
+     ]
+    }
+   ],
+   "published": [
+    "Estellas del Nilo",
+    "Bahirah",
+    "Huriya"
+   ]
+  }
+ ]
+}
