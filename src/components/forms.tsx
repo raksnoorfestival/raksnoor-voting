@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef, type ReactNode } from "react";
+import { useActionState, useEffect, useRef, useTransition, type ReactNode } from "react";
 import { useFormStatus } from "react-dom";
 import { Button, Notice } from "@/components/ui";
 
@@ -43,7 +43,8 @@ export function SubmitButton({ children, variant = "primary", className = "" }: 
 }
 
 // A button that runs a server action with fixed arguments (status flips,
-// deletes). `confirm` asks first.
+// deletes). `confirm` asks first. It is a plain button, not a form, so it
+// can sit inside another form without submitting it.
 export function ActionButton({
   action,
   children,
@@ -57,19 +58,27 @@ export function ActionButton({
   confirm?: string;
   className?: string;
 }) {
+  const [pending, start] = useTransition();
   return (
-    <form
-      action={async () => {
+    <Button
+      type="button"
+      variant={variant}
+      className={className}
+      disabled={pending}
+      onClick={() => {
         if (confirmText && !window.confirm(confirmText)) return;
-        try {
-          await action();
-        } catch (e) {
-          window.alert(e instanceof Error ? e.message : "Something went wrong.");
-        }
+        start(async () => {
+          try {
+            await action();
+          } catch (e) {
+            // A redirect() inside the action throws on purpose; let it through.
+            if (typeof (e as { digest?: string })?.digest === "string" && (e as { digest: string }).digest.startsWith("NEXT_REDIRECT")) throw e;
+            window.alert(e instanceof Error ? e.message : "Something went wrong.");
+          }
+        });
       }}
-      className="inline"
     >
-      <SubmitButton variant={variant} className={className}>{children}</SubmitButton>
-    </form>
+      {pending ? "..." : children}
+    </Button>
   );
 }
