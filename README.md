@@ -37,7 +37,7 @@ Os testes (`npm test`) usam as notas reais de 2025 (`tests/fixtures`).
 
 - Código: GitHub `raksnoorfestival/raksnoor-voting`.
 - Base de dados: Neon (Postgres), projeto `raksnoor-voting` na conta do festival.
-- Site: Vercel.
+- Site: Netlify, na conta do festival.
 
 ## Correr localmente
 
@@ -52,5 +52,5 @@ O `.env.local` (nunca vai para o GitHub) tem `DATABASE_URL`, `DIRECT_URL`,
 
 ## Publicar
 
-Cada envio para o `main` publica na Vercel. As variáveis de ambiente lá são as
+Publica-se daqui com `npx netlify deploy --build --prod`. As variáveis de ambiente lá são as
 mesmas do `.env.local` menos as `ADMIN_*`.
