@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # The build cache keeps a snapshot of the environment; it is never served.
+  # Everything else stays under the secrets scan.
+  SECRETS_SCAN_OMIT_PATHS = ".next/cache/**,.netlify/.next/cache/**"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
