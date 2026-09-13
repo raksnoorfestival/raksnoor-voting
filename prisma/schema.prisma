@@ -176,3 +176,12 @@ model ChampionshipDecision {
 
   @@unique([levelId, participantId])
 }
+
+// Failed sign-in attempts, so a program cannot try thousands of passwords.
+// Keyed by who is trying (address plus the name or email typed).
+model LoginAttempt {
+  key         String    @id
+  failures    Int       @default(0)
+  lockedUntil DateTime?
+  updatedAt   DateTime  @updatedAt
+}
