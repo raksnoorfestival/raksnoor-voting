@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
 import { NoEvent } from "../no-event";
-import { ParticipantRow } from "./participant-row";
+import { ParticipantList } from "./participant-list";
 
 const PAGE = 25;
 
@@ -33,32 +33,31 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
     <>
       <Title sub="Every dancer or group, once. Then put them in their categories, here or from the category page.">Participants</Title>
       <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
-        <Card>
+        <div>
           <form className="mb-3 flex gap-2">
             <Input name="q" defaultValue={q} placeholder="Search by name" />
             <SubmitButton variant="secondary">Search</SubmitButton>
             {q && <LinkButton href="/admin/participants" variant="ghost">Clear</LinkButton>}
           </form>
-          <div className="mb-1 text-xs text-neutral-500">
+          <div className="mb-2 text-xs text-neutral-500">
             {q ? `${total} match${total === 1 ? "" : "es"}` : `${total} participant${total === 1 ? "" : "s"}`}
             {more && `, showing ${participants.length}`}
           </div>
-          {participants.map((p) => (
-            <ParticipantRow
-              key={p.id}
-              id={p.id}
-              name={p.name}
-              notes={p.notes}
-              entries={p.entries.map((e) => ({ id: e.id, categoryId: e.categoryId, number: e.number, level: e.category.level.name, category: e.category.name }))}
-            />
-          ))}
+          <ParticipantList
+            participants={participants.map((p) => ({
+              id: p.id,
+              name: p.name,
+              notes: p.notes,
+              entries: p.entries.map((e) => ({ id: e.id, categoryId: e.categoryId, number: e.number, level: e.category.level.name, category: e.category.name })),
+            }))}
+          />
           {participants.length === 0 && <p className="py-2 text-sm text-neutral-600">{q ? "No match." : "No participants yet."}</p>}
           {more && (
             <div className="pt-3">
               <LinkButton href={moreHref} variant="secondary">Show more</LinkButton>
             </div>
           )}
-        </Card>
+        </div>
         <div className="space-y-4">
           <Card>
             <h2 className="mb-3 font-semibold">Add one</h2>
