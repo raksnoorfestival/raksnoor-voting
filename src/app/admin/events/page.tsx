@@ -1,7 +1,7 @@
 import { createEvent, deleteEvent, setCurrentEvent, updateEvent } from "@/actions/admin";
-import { copyLibraryToEventForm } from "@/actions/library";
+import { copyJudgesFromEvent, copyLibraryToEventForm } from "@/actions/library";
 import { ActionButton, StateForm, SubmitButton } from "@/components/forms";
-import { Badge, Card, Field, Input, Title } from "@/components/ui";
+import { Badge, Card, Field, Input, Select, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 
@@ -40,6 +40,18 @@ export default async function EventsPage() {
                   <input type="hidden" name="eventId" value={e.id} />
                   <SubmitButton variant="ghost">Add what is missing from the library</SubmitButton>
                 </StateForm>
+                {events.some((o) => o.id !== e.id && o._count.judges > 0) && (
+                  <StateForm action={copyJudgesFromEvent} className="grid grid-cols-[auto_auto] items-center gap-2">
+                    <input type="hidden" name="eventId" value={e.id} />
+                    <Select name="fromEventId" defaultValue="" aria-label="Copy judges from">
+                      <option value="" disabled>Copy judges from...</option>
+                      {events.filter((o) => o.id !== e.id && o._count.judges > 0).map((o) => (
+                        <option key={o.id} value={o.id}>{o.name} ({o._count.judges})</option>
+                      ))}
+                    </Select>
+                    <SubmitButton variant="ghost">Copy</SubmitButton>
+                  </StateForm>
+                )}
               </div>
               <StateForm action={updateEvent} className="grid gap-3 sm:grid-cols-[1fr_150px_150px_auto] sm:items-end">
                 <input type="hidden" name="id" value={e.id} />

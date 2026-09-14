@@ -161,3 +161,29 @@ export async function fillLibraryFromEvent(_: FormState, form: FormData): Promis
   refresh();
   return { ok: added === 0 ? "The library already had everything from that event." : `${added} categor${added === 1 ? "y" : "ies"} added to the library.` };
 }
+
+// Judges from another edition: same name, same password (changeable in
+// Judges), same order. A judge the event already has (by name) is skipped.
+export async function copyJudgesFromEvent(_: FormState, form: FormData): Promise<FormState> {
+  await requireAdmin();
+  const toId = str(form, "eventId");
+  const fromId = str(form, "fromEventId");
+  if (!toId || !fromId || toId === fromId) return { error: "Choose another event to copy the judges from." };
+  const [source, existing] = await Promise.all([
+    db.judge.findMany({ where: { eventId: fromId }, orderBy: { sortOrder: "asc" } }),
+    db.judge.findMany({ where: { eventId: toId } }),
+  ]);
+  if (source.length === 0) return { error: "That event has no judges." };
+  const have = new Set(existing.map((j) => j.name.toLowerCase()));
+  let order = Math.max(0, ...existing.map((j) => j.sortOrder));
+  let added = 0;
+  for (const j of source) {
+    if (have.has(j.name.toLowerCase())) continue;
+    await db.judge.create({ data: { eventId: toId, name: j.name, passwordHash: j.passwordHash, sortOrder: ++order, active: j.active } });
+    added++;
+  }
+  revalidatePath("/admin/judges");
+  revalidatePath("/admin/events");
+  revalidatePath("/admin");
+  return { ok: added === 0 ? "Every judge from that event is already here." : `${added} judge${added === 1 ? "" : "s"} copied, with the same passwords as before.` };
+}
