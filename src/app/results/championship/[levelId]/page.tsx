@@ -9,12 +9,12 @@ export const dynamic = "force-dynamic";
 
 export default async function PublicChampionship({ params }: { params: Promise<{ levelId: string }> }) {
   const { levelId } = await params;
-  const { event, isAdmin } = await requirePublicAccess();
+  const { event } = await requirePublicAccess();
   const championship = await levelChampionship(levelId);
   if (!championship || championship.level.eventId !== event.id || !championship.level.hasChampionship) notFound();
   // The public sees the championship only once every category of the level is published.
   const allVisible = championship.categories.every((c) => c.resultsVisible);
-  if (!isAdmin && !allVisible) notFound();
+  if (!allVisible) notFound();
 
   return (
     <main className="mx-auto max-w-4xl p-4 sm:p-6">

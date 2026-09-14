@@ -20,13 +20,13 @@ export default async function ResultsHome() {
   const shown = levels
     .map((l) => ({
       ...l,
-      championshipReady: l.hasChampionship && l.categories.length > 0 && (isAdmin || l.categories.every((c) => c.resultsVisible)),
-      categories: l.categories.filter((c) => isAdmin || c.resultsVisible),
+      championshipReady: l.hasChampionship && l.categories.length > 0 && l.categories.every((c) => c.resultsVisible),
+      categories: l.categories.filter((c) => c.resultsVisible),
     }))
     .filter((l) => l.categories.length > 0);
 
-  // Every published place, grouped by person, for the name search. The
-  // admin sees only what the public sees here, on purpose.
+  // Every published place, grouped by person, for the name search. This
+  // page shows the same to everyone: an admin only skips the password.
   const published = levels.flatMap((l) => l.categories.filter((c) => c.resultsVisible));
   const byPerson = new Map<string, Person>();
   for (const c of published) {
@@ -66,7 +66,6 @@ export default async function ResultsHome() {
                   <span className="text-lg font-bold">{c.name}</span>
                   <span className="flex gap-1">
                     {c.status === "OPEN" && <Badge tone="open">Live</Badge>}
-                    {isAdmin && !c.resultsVisible && <Badge>Hidden</Badge>}
                   </span>
                 </Link>
               ))}

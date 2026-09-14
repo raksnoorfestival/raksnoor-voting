@@ -10,10 +10,10 @@ export const dynamic = "force-dynamic";
 
 export default async function PublicCategory({ params }: { params: Promise<{ categoryId: string }> }) {
   const { categoryId } = await params;
-  const { event, isAdmin } = await requirePublicAccess();
+  const { event } = await requirePublicAccess();
   const results = await categoryResults(categoryId);
   if (!results || results.category.eventId !== event.id) notFound();
-  if (!isAdmin && !results.category.resultsVisible) notFound();
+  if (!results.category.resultsVisible) notFound();
   const { category } = results;
 
   return (
