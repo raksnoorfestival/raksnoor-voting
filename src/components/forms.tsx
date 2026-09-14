@@ -25,10 +25,12 @@ export function StateForm({
     if (resetOnOk && state?.ok) ref.current?.reset();
   }, [state, resetOnOk]);
   return (
-    <form ref={ref} action={formAction} className={`space-y-3 ${className}`}>
+    // A column form gets vertical spacing; a caller laying the form out as a
+    // grid brings its own gaps, and space-y would shove the last cell down.
+    <form ref={ref} action={formAction} className={className.includes("grid") ? className : `space-y-3 ${className}`}>
       {children}
-      {state?.error && <Notice kind="error">{state.error}</Notice>}
-      {state?.ok && <Notice kind="ok">{state.ok}</Notice>}
+      {state?.error && <div className="col-span-full"><Notice kind="error">{state.error}</Notice></div>}
+      {state?.ok && <div className="col-span-full"><Notice kind="ok">{state.ok}</Notice></div>}
     </form>
   );
 }

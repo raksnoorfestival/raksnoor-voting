@@ -1,54 +1,64 @@
 import Link from "next/link";
-import { createParticipant, deleteParticipant, importParticipants, updateParticipant } from "@/actions/admin";
-import { ActionButton, StateForm, SubmitButton } from "@/components/forms";
-import { Card, Field, Input, Title } from "@/components/ui";
+import { createParticipant, importParticipants } from "@/actions/admin";
+import { StateForm, SubmitButton } from "@/components/forms";
+import { Card, Field, Input, LinkButton, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
 import { NoEvent } from "../no-event";
+import { ParticipantRow } from "./participant-row";
 
-export default async function ParticipantsPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+const PAGE = 25;
+
+export default async function ParticipantsPage({ searchParams }: { searchParams: Promise<{ q?: string; n?: string }> }) {
   await requireAdmin();
   const event = await currentEvent();
   if (!event) return <NoEvent />;
-  const { q = "" } = await searchParams;
-  const participants = await db.participant.findMany({
-    where: { eventId: event.id, ...(q ? { name: { contains: q, mode: "insensitive" } } : {}) },
-    include: { entries: { include: { category: { include: { level: true } } } } },
-    orderBy: { name: "asc" },
-  });
+  const { q = "", n = "" } = await searchParams;
+  const limit = Math.max(PAGE, Number(n) || PAGE);
+  const where = { eventId: event.id, ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}) };
+  const [total, participants] = await Promise.all([
+    db.participant.count({ where }),
+    db.participant.findMany({
+      where,
+      include: { entries: { include: { category: { include: { level: true } } }, orderBy: { category: { sortOrder: "asc" } } } },
+      orderBy: { name: "asc" },
+      take: limit,
+    }),
+  ]);
+  const more = total > participants.length;
+  const moreHref = `/admin/participants?${new URLSearchParams({ ...(q ? { q } : {}), n: String(limit + PAGE * 3) })}`;
+
   return (
     <>
       <Title sub="Every dancer or group, once. Then put them in their categories, here or from the category page.">Participants</Title>
       <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
-        <div>
+        <Card>
           <form className="mb-3 flex gap-2">
             <Input name="q" defaultValue={q} placeholder="Search by name" />
             <SubmitButton variant="secondary">Search</SubmitButton>
+            {q && <LinkButton href="/admin/participants" variant="ghost">Clear</LinkButton>}
           </form>
-          <div className="space-y-2">
-            {participants.map((p) => (
-              <Card key={p.id} className="p-3">
-                <StateForm action={updateParticipant} className="grid gap-2 sm:grid-cols-[1fr_1fr_auto_auto] sm:items-end">
-                  <input type="hidden" name="id" value={p.id} />
-                  <Field label="Name"><Input name="name" defaultValue={p.name} required /></Field>
-                  <Field label="Notes"><Input name="notes" defaultValue={p.notes ?? ""} placeholder="school, country, contact" /></Field>
-                  <SubmitButton variant="secondary">Save</SubmitButton>
-                  <ActionButton action={deleteParticipant.bind(null, p.id)} variant="danger" confirm={`Delete ${p.name}?`}>Delete</ActionButton>
-                </StateForm>
-                <div className="mt-2 flex flex-wrap gap-1 text-xs">
-                  {p.entries.length === 0 && <span className="text-neutral-400">In no category yet</span>}
-                  {p.entries.map((e) => (
-                    <Link key={e.id} href={`/admin/categories/${e.categoryId}`} className="rounded-full bg-neutral-100 px-2 py-0.5 hover:bg-wine-light hover:text-wine">
-                      {e.category.level.name} / {e.category.name} #{e.number}
-                    </Link>
-                  ))}
-                </div>
-              </Card>
-            ))}
-            {participants.length === 0 && <Card className="text-sm text-neutral-600">{q ? "No match." : "No participants yet."}</Card>}
+          <div className="mb-1 text-xs text-neutral-500">
+            {q ? `${total} match${total === 1 ? "" : "es"}` : `${total} participant${total === 1 ? "" : "s"}`}
+            {more && `, showing ${participants.length}`}
           </div>
-        </div>
+          {participants.map((p) => (
+            <ParticipantRow
+              key={p.id}
+              id={p.id}
+              name={p.name}
+              notes={p.notes}
+              entries={p.entries.map((e) => ({ id: e.id, categoryId: e.categoryId, number: e.number, level: e.category.level.name, category: e.category.name }))}
+            />
+          ))}
+          {participants.length === 0 && <p className="py-2 text-sm text-neutral-600">{q ? "No match." : "No participants yet."}</p>}
+          {more && (
+            <div className="pt-3">
+              <LinkButton href={moreHref} variant="secondary">Show more</LinkButton>
+            </div>
+          )}
+        </Card>
         <div className="space-y-4">
           <Card>
             <h2 className="mb-3 font-semibold">Add one</h2>
@@ -70,6 +80,9 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
               <input type="file" name="file" accept=".xlsx,.xls,.csv" required className="block w-full text-sm" />
               <SubmitButton>Import</SubmitButton>
             </StateForm>
+          </Card>
+          <Card className="text-xs text-neutral-500">
+            Tip: <Link href="/admin/categories" className="text-wine underline">Categories</Link> shows each category with its running order.
           </Card>
         </div>
       </div>

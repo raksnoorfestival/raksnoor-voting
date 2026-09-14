@@ -18,10 +18,10 @@ export default async function JudgesPage() {
         <div className="space-y-3">
           {judges.map((j) => (
             <Card key={j.id}>
-              <StateForm action={updateJudge} className="grid gap-3 sm:grid-cols-[1fr_170px_80px_auto_auto_auto] sm:items-end">
+              <StateForm action={updateJudge} className="grid gap-3 sm:grid-cols-[1fr_1fr_80px_auto_auto_auto] sm:items-end">
                 <input type="hidden" name="id" value={j.id} />
                 <Field label="Name"><Input name="name" defaultValue={j.name} required /></Field>
-                <Field label="New password (blank keeps)"><Input name="password" type="text" autoComplete="off" placeholder="unchanged" /></Field>
+                <Field label="New password"><Input name="password" type="text" autoComplete="off" placeholder="blank keeps the current one" /></Field>
                 <Field label="Order"><Input name="sortOrder" type="number" defaultValue={j.sortOrder} /></Field>
                 <label className="flex h-10 items-center gap-2 text-sm"><input type="checkbox" name="active" defaultChecked={j.active} /> Active</label>
                 <SubmitButton variant="secondary">Save</SubmitButton>
