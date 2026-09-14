@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { deleteParticipant, updateParticipant } from "@/actions/admin";
 import { ActionButton, StateForm, SubmitButton } from "@/components/forms";
-import { Button, Card, Field, Input } from "@/components/ui";
+import { Button, Card, Field, Input, LinkButton } from "@/components/ui";
 
 type Entry = { id: string; categoryId: string; number: number; level: string; category: string };
 type Participant = { id: string; name: string; notes: string | null; entries: Entry[] };
@@ -24,15 +24,21 @@ function Chips({ entries }: { entries: Entry[] }) {
 
 // The full rows, with the edit form always open, or one line per person:
 // the "Compact" button switches between the two.
-export function ParticipantList({ participants }: { participants: Participant[] }) {
+export function ParticipantList({ participants, query, count }: { participants: Participant[]; query: string; count: string }) {
   const [compact, setCompact] = useState(false);
   return (
     <>
-      <div className="mb-3 flex justify-end">
-        <Button variant="secondary" onClick={() => setCompact((v) => !v)}>
+      <form className="mb-1 flex flex-wrap items-center gap-2">
+        <div className="w-full max-w-xs">
+          <Input name="q" defaultValue={query} placeholder="Search by name" />
+        </div>
+        <SubmitButton variant="secondary">Search</SubmitButton>
+        {query && <LinkButton href="/admin/participants" variant="ghost">Clear</LinkButton>}
+        <Button type="button" variant="secondary" onClick={() => setCompact((v) => !v)}>
           {compact ? "Full rows" : "Compact"}
         </Button>
-      </div>
+      </form>
+      <div className="mb-3 text-xs text-neutral-500">{count}</div>
       {compact ? (
         <Card className="p-3">
           {participants.map((p) => (

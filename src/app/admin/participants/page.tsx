@@ -28,15 +28,9 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
       <Title sub="Every dancer or group, once. Then put them in their categories, here or from the category page.">Participants</Title>
       <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
         <div>
-          <form className="mb-3 flex gap-2">
-            <Input name="q" defaultValue={q} placeholder="Search by name" />
-            <SubmitButton variant="secondary">Search</SubmitButton>
-            {q && <LinkButton href="/admin/participants" variant="ghost">Clear</LinkButton>}
-          </form>
-          <div className="mb-2 text-xs text-neutral-500">
-            {q ? `${total} match${total === 1 ? "" : "es"}` : `${total} participant${total === 1 ? "" : "s"}`}
-          </div>
           <ParticipantList
+            query={q}
+            count={q ? `${total} match${total === 1 ? "" : "es"}` : `${total} participant${total === 1 ? "" : "s"}`}
             participants={participants.map((p) => ({
               id: p.id,
               name: p.name,
