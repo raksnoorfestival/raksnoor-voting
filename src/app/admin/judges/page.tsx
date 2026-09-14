@@ -36,7 +36,7 @@ export default async function JudgesPage() {
                 {j._count.scores} scores given
                 {!j.allCategories && <Badge tone="wine">{j.categories.length} categories</Badge>}
               </div>
-              <JudgeCategories judgeId={j.id} allCategories={j.allCategories} assigned={j.categories.map((c) => c.categoryId)} levels={levels} />
+              <JudgeCategories key={`${j.allCategories}:${j.categories.map((c) => c.categoryId).sort().join(",")}`} judgeId={j.id} allCategories={j.allCategories} assigned={j.categories.map((c) => c.categoryId)} levels={levels} />
             </Card>
           ))}
           {judges.length === 0 && <Card className="text-sm text-neutral-600">No judges yet.</Card>}

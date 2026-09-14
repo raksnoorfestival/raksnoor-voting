@@ -6,7 +6,9 @@ import { StateForm, SubmitButton } from "@/components/forms";
 
 type Level = { id: string; name: string; categories: { id: string; name: string }[] };
 
-// "All categories", or tick the ones this judge votes in.
+// "All categories", or tick the ones this judge votes in. The parent keys
+// this component on the saved state, so after a save it remounts with what
+// the server has (React resets the form fields after an action).
 export function JudgeCategories({ judgeId, allCategories, assigned, levels }: { judgeId: string; allCategories: boolean; assigned: string[]; levels: Level[] }) {
   const [all, setAll] = useState(allCategories);
   return (
@@ -14,7 +16,7 @@ export function JudgeCategories({ judgeId, allCategories, assigned, levels }: { 
       <input type="hidden" name="judgeId" value={judgeId} />
       <div className="flex flex-wrap items-center gap-4">
         <label className="flex items-center gap-2 text-sm font-medium">
-          <input type="checkbox" name="allCategories" checked={all} onChange={(e) => setAll(e.target.checked)} /> All categories
+          <input type="checkbox" name="allCategories" defaultChecked={allCategories} onChange={(e) => setAll(e.target.checked)} /> All categories
         </label>
         <SubmitButton variant="secondary">Save categories</SubmitButton>
       </div>
