@@ -3,6 +3,8 @@ import { Badge, Brand, Card, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requirePublicAccess } from "@/lib/public-access";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { categoryResults } from "@/lib/results";
+import { FindMe, type Person } from "./find-me";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +25,21 @@ export default async function ResultsHome() {
     }))
     .filter((l) => l.categories.length > 0);
 
+  // Every published place, grouped by person, for the name search. The
+  // admin sees only what the public sees here, on purpose.
+  const published = levels.flatMap((l) => l.categories.filter((c) => c.resultsVisible));
+  const byPerson = new Map<string, Person>();
+  for (const c of published) {
+    const r = await categoryResults(c.id);
+    if (!r) continue;
+    for (const row of r.rows) {
+      const p = byPerson.get(row.entry.participantId) ?? { id: row.entry.participantId, name: row.entry.participant.name, results: [] };
+      p.results.push({ categoryId: c.id, level: r.category.level.name, category: c.name, place: row.place, tie: row.unresolvedTie, final: c.status === "CLOSED" });
+      byPerson.set(p.id, p);
+    }
+  }
+  const people = [...byPerson.values()].sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <main className="mx-auto max-w-2xl p-4 sm:p-6">
       <header className="mb-6 flex items-center justify-between">
@@ -30,6 +47,7 @@ export default async function ResultsHome() {
         {isAdmin && <Link href="/admin" className="text-sm text-wine">Admin</Link>}
       </header>
       <Title sub={event.name}>Results</Title>
+      {people.length > 0 && <FindMe people={people} eventName={event.name} />}
       {shown.length === 0 && <Card className="text-sm text-neutral-600">No results published yet. Check back after the categories close.</Card>}
       <div className="space-y-6">
         {shown.map((l) => (
