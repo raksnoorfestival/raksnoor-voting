@@ -54,6 +54,11 @@ export async function createEvent(_: FormState, form: FormData): Promise<FormSta
     const r = await copyLibraryToEvent(event.id);
     copied = r.categories > 0 ? ` ${r.levels} levels and ${r.categories} categories copied from the library.` : " The library is empty: add levels and categories by hand or fill the library first.";
   }
+  if (form.get("copyJudges") === "on" && str(form, "copyJudgesFrom")) {
+    const source = await db.judge.findMany({ where: { eventId: str(form, "copyJudgesFrom") }, orderBy: { sortOrder: "asc" } });
+    for (const j of source) await db.judge.create({ data: { eventId: event.id, name: j.name, passwordHash: j.passwordHash, sortOrder: j.sortOrder, active: j.active } });
+    if (source.length) copied += ` ${source.length} judges copied, same passwords as before.`;
+  }
   refresh("/admin/events");
   return { ok: `Event "${name}" created.${copied}` };
 }

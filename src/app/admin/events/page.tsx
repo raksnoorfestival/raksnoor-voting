@@ -43,13 +43,12 @@ export default async function EventsPage() {
                 {events.some((o) => o.id !== e.id && o._count.judges > 0) && (
                   <StateForm action={copyJudgesFromEvent} className="grid grid-cols-[auto_auto] items-center gap-2">
                     <input type="hidden" name="eventId" value={e.id} />
-                    <Select name="fromEventId" defaultValue="" aria-label="Copy judges from">
-                      <option value="" disabled>Copy judges from...</option>
+                    <Select name="fromEventId" defaultValue={events.find((o) => o.id !== e.id && o._count.judges > 0)!.id} aria-label="Copy judges from">
                       {events.filter((o) => o.id !== e.id && o._count.judges > 0).map((o) => (
-                        <option key={o.id} value={o.id}>{o.name} ({o._count.judges})</option>
+                        <option key={o.id} value={o.id}>{o.name} ({o._count.judges} judges)</option>
                       ))}
                     </Select>
-                    <SubmitButton variant="ghost">Copy</SubmitButton>
+                    <SubmitButton variant="ghost">Copy judges</SubmitButton>
                   </StateForm>
                 )}
               </div>
@@ -70,6 +69,16 @@ export default async function EventsPage() {
             <Field label="Starts"><Input name="startsAt" type="date" /></Field>
             <Field label="Ends"><Input name="endsAt" type="date" /></Field>
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="fromLibrary" defaultChecked /> Copy levels and categories from the library</label>
+            {events.some((o) => o._count.judges > 0) && (
+              <>
+                <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="copyJudges" defaultChecked /> Copy the judges from</label>
+                <Select name="copyJudgesFrom" defaultValue={events.find((o) => o._count.judges > 0)!.id} aria-label="Copy the judges from">
+                  {events.filter((o) => o._count.judges > 0).map((o) => (
+                    <option key={o.id} value={o.id}>{o.name} ({o._count.judges} judges)</option>
+                  ))}
+                </Select>
+              </>
+            )}
             <SubmitButton>Create</SubmitButton>
             <p className="text-xs text-neutral-500">The five usual criteria are added automatically. Judges and participants are entered per event.</p>
           </StateForm>
