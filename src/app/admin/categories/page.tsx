@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
 import { NoEvent } from "../no-event";
+import { QuickControls } from "./quick-controls";
 
 export default async function CategoriesPage() {
   await requireAdmin();
@@ -18,7 +19,7 @@ export default async function CategoriesPage() {
   });
   return (
     <>
-      <Title sub="One category per level and style. Open it when the judges are ready, close it when they are done, then make the results public.">Categories</Title>
+      <Title sub="One category per level and style. Green is open to the judges, red is closed: one tap switches. Public shows the results on the public page. Tap the name for scores, participants and ties.">Categories</Title>
       <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
         <div className="space-y-4">
           {levels.map((l) => (
@@ -30,16 +31,13 @@ export default async function CategoriesPage() {
               {l.categories.length === 0 && <div className="text-sm text-neutral-500">No categories in this level.</div>}
               <div className="divide-y divide-neutral-100">
                 {l.categories.map((c) => (
-                  <Link key={c.id} href={`/admin/categories/${c.id}`} className="flex items-center justify-between py-2 hover:text-wine">
-                    <span className="font-medium">{c.name}</span>
-                    <span className="flex items-center gap-2 text-sm text-neutral-500">
-                      {c._count.entries} participants
-                      {c.status === "DRAFT" && <Badge>Draft</Badge>}
-                      {c.status === "OPEN" && <Badge tone="open">Open</Badge>}
-                      {c.status === "CLOSED" && <Badge tone="closed">Closed</Badge>}
-                      {c.resultsVisible && <Badge tone="visible">Public</Badge>}
-                    </span>
-                  </Link>
+                  <div key={c.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
+                    <Link href={`/admin/categories/${c.id}`} className="font-medium hover:text-wine">
+                      {c.name}
+                      <span className="ml-2 text-sm font-normal text-neutral-500">{c._count.entries} participants</span>
+                    </Link>
+                    <QuickControls id={c.id} status={c.status} resultsVisible={c.resultsVisible} />
+                  </div>
                 ))}
               </div>
             </Card>
