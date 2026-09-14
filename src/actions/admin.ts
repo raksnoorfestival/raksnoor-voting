@@ -7,6 +7,7 @@ import { db } from "@/lib/db";
 import { hashPassword, checkPassword } from "@/lib/password";
 import { requireAdmin } from "@/lib/session";
 import { parseParticipantsSheet } from "@/lib/excel";
+import { copyLibraryToEvent } from "@/actions/library";
 
 export type FormState = { error?: string; ok?: string } | undefined;
 
@@ -47,8 +48,14 @@ export async function createEvent(_: FormState, form: FormData): Promise<FormSta
       priority: i + 1,
     })),
   });
+  // The levels and categories come from the library, as a copy.
+  let copied = "";
+  if (form.get("fromLibrary") === "on") {
+    const r = await copyLibraryToEvent(event.id);
+    copied = r.categories > 0 ? ` ${r.levels} levels and ${r.categories} categories copied from the library.` : " The library is empty: add levels and categories by hand or fill the library first.";
+  }
   refresh("/admin/events");
-  return { ok: `Event "${name}" created.` };
+  return { ok: `Event "${name}" created.${copied}` };
 }
 
 export async function setCurrentEvent(id: string) {

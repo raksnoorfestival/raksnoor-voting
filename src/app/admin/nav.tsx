@@ -13,6 +13,7 @@ const items = [
   ["/admin/championship", "Championship"],
   ["/admin/criteria", "Criteria"],
   ["/admin/levels", "Levels"],
+  ["/admin/library", "Library"],
   ["/admin/events", "Events"],
   ["/admin/settings", "Settings"],
 ] as const;

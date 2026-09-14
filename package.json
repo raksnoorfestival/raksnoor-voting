@@ -13,7 +13,8 @@
     "db:seed": "dotenv -e .env.local -- tsx scripts/seed.ts",
     "typecheck": "tsc --noEmit",
     "db:studio": "dotenv -e .env.local -- prisma studio",
-    "db:seed-2025": "dotenv -e .env.local -- tsx scripts/seed-2025.ts"
+    "db:seed-2025": "dotenv -e .env.local -- tsx scripts/seed-2025.ts",
+    "db:backup": "dotenv -e .env.local -- tsx scripts/backup.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

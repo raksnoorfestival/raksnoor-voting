@@ -185,3 +185,26 @@ model LoginAttempt {
   lockedUntil DateTime?
   updatedAt   DateTime  @updatedAt
 }
+
+// The library: the levels and categories the festival always has, kept
+// outside any event. A new event COPIES them; editing the library never
+// touches an event already created, so past editions keep their history.
+model LibraryLevel {
+  id              String  @id @default(cuid())
+  name            String  @unique
+  sortOrder       Int     @default(0)
+  hasChampionship Boolean @default(false)
+
+  categories LibraryCategory[]
+}
+
+model LibraryCategory {
+  id        String @id @default(cuid())
+  levelId   String
+  name      String
+  sortOrder Int    @default(0)
+
+  level LibraryLevel @relation(fields: [levelId], references: [id], onDelete: Cascade)
+
+  @@unique([levelId, name])
+}

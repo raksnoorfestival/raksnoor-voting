@@ -30,7 +30,7 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
         <div>
           <ParticipantList
             query={q}
-            count={q ? `${total} match${total === 1 ? "" : "es"}` : `${total} participant${total === 1 ? "" : "s"}`}
+            total={total}
             participants={participants.map((p) => ({
               id: p.id,
               name: p.name,
@@ -38,7 +38,6 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
               entries: p.entries.map((e) => ({ id: e.id, categoryId: e.categoryId, number: e.number, level: e.category.level.name, category: e.category.name })),
             }))}
           />
-          {participants.length === 0 && <p className="py-2 text-sm text-neutral-600">{q ? "No match." : "No participants yet."}</p>}
         </div>
         <div className="space-y-4">
           <Card>

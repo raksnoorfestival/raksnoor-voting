@@ -1,4 +1,5 @@
 import { createEvent, deleteEvent, setCurrentEvent, updateEvent } from "@/actions/admin";
+import { copyLibraryToEventForm } from "@/actions/library";
 import { ActionButton, StateForm, SubmitButton } from "@/components/forms";
 import { Badge, Card, Field, Input, Title } from "@/components/ui";
 import { db } from "@/lib/db";
@@ -33,8 +34,12 @@ export default async function EventsPage() {
                   )}
                 </div>
               </div>
-              <div className="mb-3 text-xs text-neutral-500">
-                {e._count.categories} categories, {e._count.participants} participants, {e._count.judges} judges
+              <div className="mb-3 flex flex-wrap items-center gap-3 text-xs text-neutral-500">
+                <span>{e._count.categories} categories, {e._count.participants} participants, {e._count.judges} judges</span>
+                <StateForm action={copyLibraryToEventForm} className="grid grid-cols-[auto] items-center">
+                  <input type="hidden" name="eventId" value={e.id} />
+                  <SubmitButton variant="ghost">Add what is missing from the library</SubmitButton>
+                </StateForm>
               </div>
               <StateForm action={updateEvent} className="grid gap-3 sm:grid-cols-[1fr_150px_150px_auto] sm:items-end">
                 <input type="hidden" name="id" value={e.id} />
@@ -52,8 +57,9 @@ export default async function EventsPage() {
             <Field label="Name"><Input name="name" placeholder="Raks Noor Festival 2026" required /></Field>
             <Field label="Starts"><Input name="startsAt" type="date" /></Field>
             <Field label="Ends"><Input name="endsAt" type="date" /></Field>
+            <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="fromLibrary" defaultChecked /> Copy levels and categories from the library</label>
             <SubmitButton>Create</SubmitButton>
-            <p className="text-xs text-neutral-500">The five usual criteria are added automatically. Levels, categories and judges are created per event.</p>
+            <p className="text-xs text-neutral-500">The five usual criteria are added automatically. Judges and participants are entered per event.</p>
           </StateForm>
         </Card>
       </div>
