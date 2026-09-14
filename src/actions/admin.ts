@@ -176,12 +176,18 @@ export async function updateCategory(_: FormState, form: FormData): Promise<Form
 
 export async function setCategoryStatus(id: string, status: "DRAFT" | "OPEN" | "CLOSED") {
   await requireAdmin();
-  await db.category.update({ where: { id }, data: { status } });
+  // Results can only be public while nothing can change: reopening takes
+  // the category off the public page.
+  await db.category.update({ where: { id }, data: { status, ...(status !== "CLOSED" ? { resultsVisible: false } : {}) } });
   refresh("/admin/categories", `/admin/categories/${id}`, "/judge", `/judge/${id}`, "/results");
 }
 
 export async function setResultsVisible(id: string, visible: boolean) {
   await requireAdmin();
+  if (visible) {
+    const c = await db.category.findUnique({ where: { id } });
+    if (c?.status !== "CLOSED") throw new Error("Close the category first. Results go public only when the judges can no longer change them.");
+  }
   await db.category.update({ where: { id }, data: { resultsVisible: visible } });
   refresh("/admin/categories", `/admin/categories/${id}`, "/results", `/results/${id}`);
 }

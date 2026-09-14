@@ -61,7 +61,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
         {category.resultsVisible ? (
           <ActionButton action={setResultsVisible.bind(null, id, false)}>Hide from public</ActionButton>
         ) : (
-          <ActionButton action={setResultsVisible.bind(null, id, true)} confirm={category.status !== "CLOSED" ? "The category is not closed yet: the public would see results that can still change. Show anyway?" : undefined}>
+          <ActionButton action={setResultsVisible.bind(null, id, true)} disabled={category.status !== "CLOSED"} title={category.status !== "CLOSED" ? "Close the category first" : undefined}>
             Show on public page
           </ActionButton>
         )}

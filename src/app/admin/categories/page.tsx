@@ -19,7 +19,7 @@ export default async function CategoriesPage() {
   });
   return (
     <>
-      <Title sub="One category per level and style. Green is open to the judges, red is closed: one tap switches. Public shows the results on the public page. Tap the name for scores, participants and ties.">Categories</Title>
+      <Title sub="One category per level and style. One tap opens or closes a category to the judges. Results can go public only once the category is closed. Tap the name for scores, participants and ties.">Categories</Title>
       <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
         <div className="space-y-4">
           {levels.map((l) => (

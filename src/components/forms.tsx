@@ -53,12 +53,16 @@ export function ActionButton({
   variant = "secondary",
   confirm: confirmText,
   className = "",
+  disabled = false,
+  title,
 }: {
   action: () => Promise<unknown>;
   children: ReactNode;
   variant?: "primary" | "secondary" | "danger" | "ghost";
   confirm?: string;
   className?: string;
+  disabled?: boolean;
+  title?: string;
 }) {
   const [pending, start] = useTransition();
   return (
@@ -66,7 +70,8 @@ export function ActionButton({
       type="button"
       variant={variant}
       className={className}
-      disabled={pending}
+      title={title}
+      disabled={pending || disabled}
       onClick={() => {
         if (confirmText && !window.confirm(confirmText)) return;
         start(async () => {
