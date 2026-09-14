@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { rankEntries, rankChampionship, type RankedEntry, type ChampionRow } from "@/lib/ranking";
+import { judgesOfCategory } from "@/lib/judge-access";
 
 // Everything a results screen needs for one category, in one query set.
 export async function categoryResults(categoryId: string) {
@@ -13,7 +14,7 @@ export async function categoryResults(categoryId: string) {
   });
   if (!category) return null;
   const [activeJudges, criteria, scores] = await Promise.all([
-    db.judge.findMany({ where: { eventId: category.eventId, active: true }, orderBy: { sortOrder: "asc" } }),
+    db.judge.findMany({ where: { eventId: category.eventId, ...judgesOfCategory(categoryId) }, orderBy: { sortOrder: "asc" } }),
     db.criterion.findMany({ where: { eventId: category.eventId }, orderBy: { priority: "asc" } }),
     db.score.findMany({ where: { entry: { categoryId } } }),
   ]);

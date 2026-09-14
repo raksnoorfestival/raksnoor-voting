@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Badge, Brand } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requireJudge } from "@/lib/session";
+import { judgesOfCategory } from "@/lib/judge-access";
 import { ScoreSheet } from "./score-sheet";
 
 export const dynamic = "force-dynamic";
@@ -19,6 +20,7 @@ export default async function JudgeCategory({ params }: { params: Promise<{ cate
     },
   });
   if (!category || category.eventId !== judge.eventId || category.status === "DRAFT") notFound();
+  if (!(await db.judge.findFirst({ where: { id: judge.id, ...judgesOfCategory(categoryId) } }))) notFound();
   const criteria = await db.criterion.findMany({ where: { eventId: judge.eventId }, orderBy: { priority: "asc" } });
 
   return (

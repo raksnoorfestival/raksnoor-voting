@@ -67,10 +67,11 @@ model Category {
   // Results reach the public page only when the admin flips this.
   resultsVisible Boolean        @default(false)
 
-  event   Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  level   Level        @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  event   Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  level   Level           @relation(fields: [levelId], references: [id], onDelete: Cascade)
   entries Entry[]
   sheets  JudgeSheet[]
+  judges  JudgeCategory[]
 
   @@unique([eventId, levelId, name])
 }
@@ -106,17 +107,20 @@ model Entry {
 }
 
 model Judge {
-  id           String  @id @default(cuid())
-  eventId      String
+  id            String  @id @default(cuid())
+  eventId       String
   // Login is by name, not email: the organiser creates it and hands out the password.
-  name         String
-  passwordHash String
-  sortOrder    Int     @default(0)
-  active       Boolean @default(true)
+  name          String
+  passwordHash  String
+  sortOrder     Int     @default(0)
+  active        Boolean @default(true)
+  // Votes in every category of the event; untick to pick categories below.
+  allCategories Boolean @default(true)
 
-  event  Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  scores Score[]
-  sheets JudgeSheet[]
+  event      Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  scores     Score[]
+  sheets     JudgeSheet[]
+  categories JudgeCategory[]
 
   @@unique([eventId, name])
 }
@@ -207,4 +211,15 @@ model LibraryCategory {
   level LibraryLevel @relation(fields: [levelId], references: [id], onDelete: Cascade)
 
   @@unique([levelId, name])
+}
+
+// Which categories a judge votes in, when not all of them.
+model JudgeCategory {
+  judgeId    String
+  categoryId String
+
+  judge    Judge    @relation(fields: [judgeId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([judgeId, categoryId])
 }

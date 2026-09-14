@@ -468,3 +468,23 @@ export async function createAdmin(_: FormState, form: FormData): Promise<FormSta
   refresh("/admin/settings");
   return { ok: `Admin "${name}" created.` };
 }
+
+// Which categories a judge votes in. "All" keeps the judge on every panel;
+// otherwise exactly the ticked ones.
+export async function setJudgeCategories(_: FormState, form: FormData): Promise<FormState> {
+  await requireAdmin();
+  const judgeId = str(form, "judgeId");
+  const all = form.get("allCategories") === "on";
+  const ids = form.getAll("categoryId").map(String);
+  const judge = await db.judge.findUnique({ where: { id: judgeId } });
+  if (!judge) return { error: "Unknown judge." };
+  if (!all && ids.length === 0) return { error: "Tick at least one category, or All categories." };
+  const valid = await db.category.findMany({ where: { id: { in: ids }, eventId: judge.eventId }, select: { id: true } });
+  await db.$transaction([
+    db.judge.update({ where: { id: judgeId }, data: { allCategories: all } }),
+    db.judgeCategory.deleteMany({ where: { judgeId } }),
+    ...(all ? [] : [db.judgeCategory.createMany({ data: valid.map((c) => ({ judgeId, categoryId: c.id })) })]),
+  ]);
+  refresh("/admin/judges", "/admin/categories", "/judge");
+  return { ok: all ? "Votes in every category." : `Votes in ${valid.length} categor${valid.length === 1 ? "y" : "ies"}.` };
+}

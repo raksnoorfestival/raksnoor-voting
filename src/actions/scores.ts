@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { getJudge } from "@/lib/session";
+import { judgesOfCategory } from "@/lib/judge-access";
 
 // One tap, one row. The sheet saves as the judge goes, so a dead battery or
 // a lost connection costs one score, not a category.
@@ -11,6 +12,7 @@ export async function saveScore(entryId: string, criterionId: string, value: num
   const entry = await db.entry.findUnique({ where: { id: entryId }, include: { category: true } });
   if (!entry || entry.category.eventId !== judge.eventId) return { ok: false, error: "Unknown entry." };
   if (entry.category.status !== "OPEN") return { ok: false, error: "This category is closed." };
+  if (!(await db.judge.findFirst({ where: { id: judge.id, ...judgesOfCategory(entry.categoryId) } }))) return { ok: false, error: "You are not on the panel of this category." };
   const criterion = await db.criterion.findUnique({ where: { id: criterionId } });
   if (!criterion || criterion.eventId !== judge.eventId) return { ok: false, error: "Unknown criterion." };
   if (!Number.isInteger(value) || value < 1 || value > criterion.maxPoints) return { ok: false, error: `Score must be 1 to ${criterion.maxPoints}.` };
@@ -29,6 +31,7 @@ export async function submitSheet(categoryId: string): Promise<{ ok: true } | { 
   const category = await db.category.findUnique({ where: { id: categoryId } });
   if (!category || category.eventId !== judge.eventId) return { ok: false, error: "Unknown category." };
   if (category.status !== "OPEN") return { ok: false, error: "This category is closed." };
+  if (!(await db.judge.findFirst({ where: { id: judge.id, ...judgesOfCategory(categoryId) } }))) return { ok: false, error: "You are not on the panel of this category." };
   await db.judgeSheet.upsert({
     where: { categoryId_judgeId: { categoryId, judgeId: judge.id } },
     create: { categoryId, judgeId: judge.id, submittedAt: new Date() },

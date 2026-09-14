@@ -5,15 +5,19 @@ import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
 import { NoEvent } from "../no-event";
+import { JudgeCategories } from "./judge-categories";
 
 export default async function JudgesPage() {
   await requireAdmin();
   const event = await currentEvent();
   if (!event) return <NoEvent />;
-  const judges = await db.judge.findMany({ where: { eventId: event.id }, include: { _count: { select: { scores: true } } }, orderBy: { sortOrder: "asc" } });
+  const [judges, levels] = await Promise.all([
+    db.judge.findMany({ where: { eventId: event.id }, include: { _count: { select: { scores: true } }, categories: true }, orderBy: { sortOrder: "asc" } }),
+    db.level.findMany({ where: { eventId: event.id }, include: { categories: { orderBy: { sortOrder: "asc" } } }, orderBy: { sortOrder: "asc" } }),
+  ]);
   return (
     <>
-      <Title sub="Each judge signs in on any tablet or phone with their name and the password you set here. Only active judges count in the results.">Judges</Title>
+      <Title sub="Each judge signs in on any tablet or phone with their name and the password you set here. A judge votes in every category unless you pick theirs below; only the judges on a panel count in its results.">Judges</Title>
       <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
         <div className="space-y-3">
           {judges.map((j) => (
@@ -30,7 +34,9 @@ export default async function JudgesPage() {
               <div className="mt-2 flex items-center gap-2 text-xs text-neutral-500">
                 {!j.active && <Badge>Inactive</Badge>}
                 {j._count.scores} scores given
+                {!j.allCategories && <Badge tone="wine">{j.categories.length} categories</Badge>}
               </div>
+              <JudgeCategories judgeId={j.id} allCategories={j.allCategories} assigned={j.categories.map((c) => c.categoryId)} levels={levels} />
             </Card>
           ))}
           {judges.length === 0 && <Card className="text-sm text-neutral-600">No judges yet.</Card>}

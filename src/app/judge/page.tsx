@@ -5,15 +5,17 @@ import { Badge, Brand, Card, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requireJudge } from "@/lib/session";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { categoriesOfJudge } from "@/lib/judge-access";
 
 export const dynamic = "force-dynamic";
 
 export default async function JudgeHome() {
   const judge = await requireJudge();
+  const me = await db.judge.findUnique({ where: { id: judge.id } });
   const [event, categories, criteriaCount] = await Promise.all([
     db.event.findUnique({ where: { id: judge.eventId } }),
     db.category.findMany({
-      where: { eventId: judge.eventId, status: { in: ["OPEN", "CLOSED"] } },
+      where: { eventId: judge.eventId, status: { in: ["OPEN", "CLOSED"] }, ...(me ? categoriesOfJudge(me) : { id: "none" }) },
       include: {
         level: true,
         _count: { select: { entries: true } },
