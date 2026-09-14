@@ -8,14 +8,11 @@ import { currentEvent } from "@/lib/event";
 import { NoEvent } from "../no-event";
 import { ParticipantList } from "./participant-list";
 
-const PAGE = 25;
-
-export default async function ParticipantsPage({ searchParams }: { searchParams: Promise<{ q?: string; n?: string }> }) {
+export default async function ParticipantsPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   await requireAdmin();
   const event = await currentEvent();
   if (!event) return <NoEvent />;
-  const { q = "", n = "" } = await searchParams;
-  const limit = Math.max(PAGE, Number(n) || PAGE);
+  const { q = "" } = await searchParams;
   const where = { eventId: event.id, ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}) };
   const [total, participants] = await Promise.all([
     db.participant.count({ where }),
@@ -23,11 +20,8 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
       where,
       include: { entries: { include: { category: { include: { level: true } } }, orderBy: { category: { sortOrder: "asc" } } } },
       orderBy: { name: "asc" },
-      take: limit,
     }),
   ]);
-  const more = total > participants.length;
-  const moreHref = `/admin/participants?${new URLSearchParams({ ...(q ? { q } : {}), n: String(limit + PAGE * 3) })}`;
 
   return (
     <>
@@ -41,7 +35,6 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
           </form>
           <div className="mb-2 text-xs text-neutral-500">
             {q ? `${total} match${total === 1 ? "" : "es"}` : `${total} participant${total === 1 ? "" : "s"}`}
-            {more && `, showing ${participants.length}`}
           </div>
           <ParticipantList
             participants={participants.map((p) => ({
@@ -52,11 +45,6 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
             }))}
           />
           {participants.length === 0 && <p className="py-2 text-sm text-neutral-600">{q ? "No match." : "No participants yet."}</p>}
-          {more && (
-            <div className="pt-3">
-              <LinkButton href={moreHref} variant="secondary">Show more</LinkButton>
-            </div>
-          )}
         </div>
         <div className="space-y-4">
           <Card>
