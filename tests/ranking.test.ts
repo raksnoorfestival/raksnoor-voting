@@ -4,7 +4,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { rankEntries, rankChampionship, type Score } from "../src/lib/ranking.ts";
+import { rankEntries, rankChampionship, explainTie, type Score } from "../src/lib/ranking.ts";
 
 type Fixture = {
   criteria: string[];
@@ -180,4 +180,38 @@ test("A championship tie flags both, and the admin's decision settles it", () =>
   assert.equal(decided[0].participantId, "B");
   assert.ok(decided[0].decidedByAdmin);
   assert.equal(decided[1].place, 2);
+});
+
+test("A tie on the sum of ranks is explained by the first step that separates the two", () => {
+  // Yana and Daryna in Master Improvisation: 8 and 8, same 1st/2nd/3rd,
+  // same Technique, Choreo and Stage Presence; Originality 40 against 38.
+  const r = order("M.Improv");
+  const yana = r.find((x) => x.entryId === "Yana Holka")!;
+  const daryna = r.find((x) => x.entryId === "Daryna Ilchyshena")!;
+  const why = explainTie(yana, daryna, festival.criteria)!;
+  assert.deepEqual(why.same, ["1st places", "2nd places", "3rd places", "Technique", "Choreo & Musicality", "Stage Presence"]);
+  assert.deepEqual(why.decidedBy, { label: "Originality", a: 40, b: 38 });
+  assert.equal(why.byAdmin, false);
+  // The same pair the other way round reads the other way round.
+  assert.deepEqual(explainTie(daryna, yana, festival.criteria)!.decidedBy, { label: "Originality", a: 38, b: 40 });
+  // No tie on the sum, nothing to explain.
+  const sara = r.find((x) => x.entryId === "Sara Olianas")!;
+  assert.equal(explainTie(yana, sara, festival.criteria), null);
+  // Placements come before criteria: 2 firsts against 1 decides even when a
+  // criterion would say the opposite.
+  const byPlaces = explainTie(
+    { rankSum: 6, placements: [2, 0, 1], criterionTotals: [30, 30], decidedByAdmin: false },
+    { rankSum: 6, placements: [1, 2, 0], criterionTotals: [40, 30], decidedByAdmin: false },
+    ["Technique", "Image"],
+  )!;
+  assert.deepEqual(byPlaces.decidedBy, { label: "1st places", a: 2, b: 1 });
+  assert.deepEqual(byPlaces.same, []);
+  // Nothing separates them: the jury.
+  const jury = explainTie(
+    { rankSum: 6, placements: [1, 1, 1], criterionTotals: [30], decidedByAdmin: true },
+    { rankSum: 6, placements: [1, 1, 1], criterionTotals: [30], decidedByAdmin: true },
+    ["Technique"],
+  )!;
+  assert.equal(jury.decidedBy, null);
+  assert.equal(jury.byAdmin, true);
 });

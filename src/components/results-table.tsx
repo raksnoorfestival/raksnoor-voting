@@ -1,5 +1,38 @@
 import { Badge, Place } from "@/components/ui";
 import type { CategoryResults } from "@/lib/results";
+import { explainTie, type TieExplanation } from "@/lib/ranking";
+
+// One sentence a reader can follow in seconds: what the two still shared,
+// and the step that put one above the other.
+function tieSentence(other: string, ahead: boolean, why: TieExplanation, sum: number): string {
+  const list = (xs: string[]) => (xs.length <= 1 ? xs.join("") : xs.slice(0, -1).join(", ") + " and " + xs[xs.length - 1]);
+  // "1st places, 2nd places, 3rd places" reads as one item: "1st, 2nd and 3rd places".
+  const places = why.same.filter((x) => x.endsWith(" places")).map((x) => x.replace(" places", ""));
+  const rest = why.same.filter((x) => !x.endsWith(" places"));
+  const items = [...(places.length ? [`${list(places)} places`] : []), ...rest];
+  const shared = items.length ? ` Same ${list(items)}.` : "";
+  const head = `Tied with ${other} on sum of ranks (${sum}).${shared}`;
+  if (why.decidedBy) return `${head} ${ahead ? "Ahead" : "Behind"} on ${why.decidedBy.label}: ${why.decidedBy.a} vs ${why.decidedBy.b}.`;
+  if (why.byAdmin) return `${head} Decided by the jury.`;
+  return `${head} Nothing in the rules separates them: the jury decides.`;
+}
+
+function tieLines(rows: CategoryResults["rows"], i: number, criteria: { name: string }[]): string[] {
+  const names = criteria.map((c) => c.name);
+  const me = rows[i];
+  const lines: string[] = [];
+  const prev = rows[i - 1];
+  if (prev && prev.rankSum === me.rankSum && !me.unresolvedTie) {
+    const why = explainTie(me, prev, names);
+    if (why) lines.push(tieSentence(prev.entry.participant.name, false, why, me.rankSum));
+  }
+  const next = rows[i + 1];
+  if (next && next.rankSum === me.rankSum) {
+    const why = explainTie(me, next, names);
+    if (why) lines.push(tieSentence(next.entry.participant.name, true, why, me.rankSum));
+  }
+  return lines;
+}
 
 // The classification of one category, with every judge's points and, when
 // asked, each criterion's score. Shared by the admin panel and the public
@@ -24,7 +57,7 @@ export function ResultsTable({ results, detailed }: { results: CategoryResults; 
           </tr>
         </thead>
         <tbody>
-          {rows.map((r) => (
+          {rows.map((r, i) => (
             <tr key={r.entryId} className={`border-b border-neutral-100 align-top ${r.unresolvedTie ? "bg-amber-50" : ""}`}>
               <td className="py-2 pr-2">
                 <Place n={r.place} />
@@ -37,6 +70,11 @@ export function ResultsTable({ results, detailed }: { results: CategoryResults; 
                   {r.decidedByAdmin && <Badge tone="wine">Tie decided</Badge>}
                   {!r.complete && <Badge>Incomplete</Badge>}
                 </div>
+                {tieLines(rows, i, criteria).map((line) => (
+                  <div key={line} className="mt-1 max-w-[28rem] text-xs leading-snug text-neutral-600">
+                    {line}
+                  </div>
+                ))}
               </td>
               {r.judges.map((j) => (
                 <td key={j.judgeId} className="py-2 pr-3 text-center">

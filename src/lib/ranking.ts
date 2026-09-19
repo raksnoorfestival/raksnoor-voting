@@ -211,3 +211,34 @@ export function rankChampionship(
     decidedByAdmin,
   }));
 }
+
+// Why one entry is above another when their sums of ranks are equal: the
+// steps of rules 4 and 5 they still share, and the first one that separates
+// them. Null when the sums differ (no tie to explain).
+export type TieStep = { label: string; a: number; b: number };
+export type TieExplanation = {
+  /** Steps where both were equal, in the order they were tried. */
+  same: string[];
+  /** The step that decided, or null when none did. */
+  decidedBy: TieStep | null;
+  /** When no step decided: true if the admin's decision put them in order. */
+  byAdmin: boolean;
+};
+
+export function explainTie(
+  a: { rankSum: number; placements: number[]; criterionTotals: number[]; decidedByAdmin: boolean },
+  b: { rankSum: number; placements: number[]; criterionTotals: number[]; decidedByAdmin: boolean },
+  criteriaNames: string[],
+): TieExplanation | null {
+  if (a.rankSum !== b.rankSum) return null;
+  const steps: TieStep[] = [
+    ...a.placements.map((v, i) => ({ label: `${["1st", "2nd", "3rd"][i]} places`, a: v, b: b.placements[i] })),
+    ...a.criterionTotals.map((v, i) => ({ label: criteriaNames[i], a: v, b: b.criterionTotals[i] })),
+  ];
+  const same: string[] = [];
+  for (const s of steps) {
+    if (s.a !== s.b) return { same, decidedBy: s, byAdmin: false };
+    same.push(s.label);
+  }
+  return { same, decidedBy: null, byAdmin: a.decidedByAdmin && b.decidedByAdmin };
+}
