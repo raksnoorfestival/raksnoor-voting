@@ -2,41 +2,42 @@ import { Badge, Place } from "@/components/ui";
 import type { CategoryResults } from "@/lib/results";
 import { explainTie, type TieExplanation } from "@/lib/ranking";
 
-// One sentence a reader can follow in seconds: what the two still shared,
-// and the step that put one above the other.
-function tieSentence(other: string, ahead: boolean, why: TieExplanation, sum: number): string {
-  const list = (xs: string[]) => (xs.length <= 1 ? xs.join("") : xs.slice(0, -1).join(", ") + " and " + xs[xs.length - 1]);
-  // "1st places, 2nd places, 3rd places" reads as one item: "1st, 2nd and 3rd places".
-  const places = why.same.filter((x) => x.endsWith(" places")).map((x) => x.replace(" places", ""));
-  const rest = why.same.filter((x) => !x.endsWith(" places"));
-  const items = [...(places.length ? [`${list(places)} places`] : []), ...rest];
-  const shared = items.length ? ` Same ${list(items)}.` : "";
-  const head = `Tied with ${other} on sum of ranks (${sum}).${shared}`;
-  if (why.decidedBy) return `${head} ${ahead ? "Ahead" : "Behind"} on ${why.decidedBy.label}: ${why.decidedBy.a} vs ${why.decidedBy.b}.`;
-  if (why.byAdmin) return `${head} Decided by the jury.`;
-  return `${head} Nothing in the rules separates them: the jury decides.`;
-}
-
-function tieLines(rows: CategoryResults["rows"], i: number, criteria: { name: string }[]): string[] {
+// One box per tie on the sum of ranks, in words a reader can follow in
+// seconds: what the two still shared, and the step that decided.
+function tieMessages(rows: CategoryResults["rows"], criteria: { name: string }[]): string[] {
   const names = criteria.map((c) => c.name);
-  const me = rows[i];
-  const lines: string[] = [];
-  const prev = rows[i - 1];
-  if (prev && prev.rankSum === me.rankSum && !me.unresolvedTie) {
-    const why = explainTie(me, prev, names);
-    if (why) lines.push(tieSentence(prev.entry.participant.name, false, why, me.rankSum));
+  const list = (xs: string[]) => (xs.length <= 1 ? xs.join("") : xs.slice(0, -1).join(", ") + " and " + xs[xs.length - 1]);
+  const out: string[] = [];
+  for (let i = 0; i + 1 < rows.length; i++) {
+    const a = rows[i];
+    const b = rows[i + 1];
+    const why = explainTie(a, b, names);
+    if (!why) continue;
+    const an = a.entry.participant.name;
+    const bn = b.entry.participant.name;
+    const places = why.same.filter((x) => x.endsWith(" places")).map((x) => x.replace(" places", ""));
+    const rest = why.same.filter((x) => !x.endsWith(" places"));
+    let text = `${an} and ${bn} have the same sum of ranks (${a.rankSum}).`;
+    if (places.length || rest.length) {
+      const parts = [
+        ...(places.length ? [`the same number of ${list(places)} places`] : []),
+        ...(rest.length ? [`the same total in ${list(rest)}`] : []),
+      ];
+      text += ` They also have ${parts.join(", and ")}.`;
+    }
+    if (why.decidedBy) {
+      const label = why.decidedBy.label.endsWith(" places") ? `The number of ${why.decidedBy.label}` : why.decidedBy.label;
+      text += ` ${label} decided it: ${an} ${why.decidedBy.a}, ${bn} ${why.decidedBy.b}.`;
+    } else if (why.byAdmin) {
+      text += " The jury decided the order.";
+    } else {
+      text += " Nothing in the rules separates them: the jury decides.";
+    }
+    out.push(text);
   }
-  const next = rows[i + 1];
-  if (next && next.rankSum === me.rankSum) {
-    const why = explainTie(me, next, names);
-    if (why) lines.push(tieSentence(next.entry.participant.name, true, why, me.rankSum));
-  }
-  return lines;
+  return out;
 }
 
-// The classification of one category, with every judge's points and, when
-// asked, each criterion's score. Shared by the admin panel and the public
-// page so the two can never disagree.
 export function ResultsTable({ results, detailed }: { results: CategoryResults; detailed: boolean }) {
   const { judges, criteria, rows } = results;
   if (rows.length === 0) return <p className="text-sm text-neutral-600">No participants.</p>;
@@ -57,7 +58,7 @@ export function ResultsTable({ results, detailed }: { results: CategoryResults; 
           </tr>
         </thead>
         <tbody>
-          {rows.map((r, i) => (
+          {rows.map((r) => (
             <tr key={r.entryId} className={`border-b border-neutral-100 align-top ${r.unresolvedTie ? "bg-amber-50" : ""}`}>
               <td className="py-2 pr-2">
                 <Place n={r.place} />
@@ -70,11 +71,6 @@ export function ResultsTable({ results, detailed }: { results: CategoryResults; 
                   {r.decidedByAdmin && <Badge tone="wine">Tie decided</Badge>}
                   {!r.complete && <Badge>Incomplete</Badge>}
                 </div>
-                {tieLines(rows, i, criteria).map((line) => (
-                  <div key={line} className="mt-1 max-w-[28rem] text-xs leading-snug text-neutral-600">
-                    {line}
-                  </div>
-                ))}
               </td>
               {r.judges.map((j) => (
                 <td key={j.judgeId} className="py-2 pr-3 text-center">
@@ -96,6 +92,11 @@ export function ResultsTable({ results, detailed }: { results: CategoryResults; 
           ))}
         </tbody>
       </table>
+      {tieMessages(rows, criteria).map((text) => (
+        <p key={text} className="mt-3 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-800">
+          {text}
+        </p>
+      ))}
       {detailed && (
         <p className="mt-2 text-xs text-neutral-500">
           Small numbers under each judge: {criteria.map((c) => c.name).join(", ")}, in that order. An asterisk means the judge has not scored every criterion yet.
