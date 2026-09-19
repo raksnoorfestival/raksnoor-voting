@@ -213,13 +213,23 @@ export async function createParticipant(_: FormState, form: FormData): Promise<F
   const eventId = str(form, "eventId");
   const name = str(form, "name");
   if (!name) return { error: "Give the participant a name." };
+  // The categories ticked in the form: the participant goes straight into
+  // them, at the end of each running order.
+  const categoryIds = form.getAll("categories").map(String).filter(Boolean);
+  const categories = categoryIds.length ? await db.category.findMany({ where: { id: { in: categoryIds }, eventId }, include: { level: true } }) : [];
+  let participant;
   try {
-    await db.participant.create({ data: { eventId, name, notes: str(form, "notes") || null } });
+    participant = await db.participant.create({ data: { eventId, name, notes: str(form, "notes") || null } });
   } catch (e) {
     return friendly(e, "participant");
   }
-  refresh("/admin/participants");
-  return { ok: `"${name}" added.` };
+  for (const c of categories) {
+    const last = await db.entry.findFirst({ where: { categoryId: c.id }, orderBy: { number: "desc" } });
+    await db.entry.create({ data: { categoryId: c.id, participantId: participant.id, number: (last?.number ?? 0) + 1 } });
+  }
+  refresh("/admin/participants", "/admin/categories");
+  const where = categories.map((c) => `${c.level.name} / ${c.name}`).join(", ");
+  return { ok: categories.length ? `"${name}" added to ${where}.` : `"${name}" added, in no category yet.` };
 }
 
 export async function updateParticipant(_: FormState, form: FormData): Promise<FormState> {

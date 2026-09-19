@@ -14,13 +14,14 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
   if (!event) return <NoEvent />;
   const { q = "" } = await searchParams;
   const where = { eventId: event.id, ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}) };
-  const [total, participants] = await Promise.all([
+  const [total, participants, levels] = await Promise.all([
     db.participant.count({ where }),
     db.participant.findMany({
       where,
       include: { entries: { include: { category: { include: { level: true } } }, orderBy: { category: { sortOrder: "asc" } } } },
       orderBy: { name: "asc" },
     }),
+    db.level.findMany({ where: { eventId: event.id }, include: { categories: { orderBy: { sortOrder: "asc" } } }, orderBy: { sortOrder: "asc" } }),
   ]);
 
   return (
@@ -46,6 +47,23 @@ export default async function ParticipantsPage({ searchParams }: { searchParams:
               <input type="hidden" name="eventId" value={event.id} />
               <Field label="Name"><Input name="name" required /></Field>
               <Field label="Notes"><Input name="notes" /></Field>
+              <Field label="Categories">
+                <div className="max-h-72 space-y-2 overflow-y-auto rounded-lg border border-neutral-200 p-2">
+                  {levels.map((l) => (
+                    <div key={l.id}>
+                      <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{l.name}</div>
+                      {l.categories.length === 0 && <div className="text-xs text-neutral-400">No categories.</div>}
+                      {l.categories.map((c) => (
+                        <label key={c.id} className="flex items-center gap-2 py-0.5 text-sm">
+                          <input type="checkbox" name="categories" value={c.id} className="h-4 w-4 accent-wine" />
+                          {c.name}
+                        </label>
+                      ))}
+                    </div>
+                  ))}
+                  {levels.length === 0 && <div className="text-xs text-neutral-400">No levels yet.</div>}
+                </div>
+              </Field>
               <SubmitButton>Add</SubmitButton>
             </StateForm>
           </Card>
