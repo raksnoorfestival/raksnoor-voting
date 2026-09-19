@@ -25,8 +25,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
   const available = participants.filter((p) => !inCategory.has(p.id));
   const submitted = new Set(category.sheets.filter((s) => s.submittedAt).map((s) => s.judgeId));
   const hasScores = rows.some((r) => r.judges.some((j) => j.byCriterion.some((v) => v !== null)));
+  // A tie is only real once the category is closed: before that every
+  // dancer nobody scored yet "ties" at zero, and asking the jury to decide
+  // would be noise.
   const tieGroups = new Map<number, typeof rows>();
-  for (const r of rows.filter((x) => x.unresolvedTie)) tieGroups.set(r.place, [...(tieGroups.get(r.place) ?? []), r]);
+  if (category.status === "CLOSED") for (const r of rows.filter((x) => x.unresolvedTie)) tieGroups.set(r.place, [...(tieGroups.get(r.place) ?? []), r]);
   const decidedTies = rows.some((r) => r.decidedByAdmin);
 
   return (

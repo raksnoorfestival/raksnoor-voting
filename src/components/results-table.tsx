@@ -40,6 +40,9 @@ function tieMessages(rows: CategoryResults["rows"], criteria: { name: string }[]
 
 export function ResultsTable({ results, detailed }: { results: CategoryResults; detailed: boolean }) {
   const { judges, criteria, rows } = results;
+  // Ties are only worth flagging once the category is closed; while it is
+  // open, dancers nobody scored yet all "tie" at zero.
+  const closed = results.category.status === "CLOSED";
   if (rows.length === 0) return <p className="text-sm text-neutral-600">No participants.</p>;
   return (
     <div className="overflow-x-auto">
@@ -59,7 +62,7 @@ export function ResultsTable({ results, detailed }: { results: CategoryResults; 
         </thead>
         <tbody>
           {rows.map((r) => (
-            <tr key={r.entryId} className={`border-b border-neutral-100 align-top ${r.unresolvedTie ? "bg-amber-50" : ""}`}>
+            <tr key={r.entryId} className={`border-b border-neutral-100 align-top ${closed && r.unresolvedTie ? "bg-amber-50" : ""}`}>
               <td className="py-2 pr-2">
                 <Place n={r.place} />
               </td>
@@ -67,7 +70,7 @@ export function ResultsTable({ results, detailed }: { results: CategoryResults; 
               <td className="py-2 pr-4">
                 <div className="font-semibold">{r.entry.participant.name}</div>
                 <div className="mt-0.5 flex flex-wrap gap-1">
-                  {r.unresolvedTie && <Badge tone="visible">Tie</Badge>}
+                  {closed && r.unresolvedTie && <Badge tone="visible">Tie</Badge>}
                   {r.decidedByAdmin && <Badge tone="wine">Tie decided</Badge>}
                   {!r.complete && <Badge>Incomplete</Badge>}
                 </div>
@@ -92,7 +95,7 @@ export function ResultsTable({ results, detailed }: { results: CategoryResults; 
           ))}
         </tbody>
       </table>
-      {tieMessages(rows, criteria).map((text) => (
+      {closed && tieMessages(rows, criteria).map((text) => (
         <p key={text} className="mt-3 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-800">
           {text}
         </p>
