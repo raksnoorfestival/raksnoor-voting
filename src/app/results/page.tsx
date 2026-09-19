@@ -3,7 +3,7 @@ import { Badge, Brand, Card, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requirePublicAccess } from "@/lib/public-access";
 import { AutoRefresh } from "@/components/auto-refresh";
-import { categoryResults } from "@/lib/results";
+import { eventResults } from "@/lib/results";
 import { FindMe, type Person } from "./find-me";
 
 export const dynamic = "force-dynamic";
@@ -28,9 +28,10 @@ export default async function ResultsHome() {
   // Every published place, grouped by person, for the name search. This
   // page shows the same to everyone: an admin only skips the password.
   const published = levels.flatMap((l) => l.categories.filter((c) => c.resultsVisible));
+  const results = await eventResults(event.id);
   const byPerson = new Map<string, Person>();
   for (const c of published) {
-    const r = await categoryResults(c.id);
+    const r = results.get(c.id);
     if (!r) continue;
     for (const row of r.rows) {
       const p = byPerson.get(row.entry.participantId) ?? { id: row.entry.participantId, name: row.entry.participant.name, results: [] };

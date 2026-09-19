@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getAdmin } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
-import { categoryResults, levelChampionship } from "@/lib/results";
+import { eventResults, levelChampionship } from "@/lib/results";
 import { resultsWorkbook, type ExportCategory } from "@/lib/excel";
 
 // Everything, as a spreadsheet: one sheet per category with each judge's
@@ -13,10 +13,11 @@ export async function GET() {
   if (!event) return new NextResponse("No current event", { status: 404 });
   const levels = await db.level.findMany({ where: { eventId: event.id }, include: { categories: { orderBy: { sortOrder: "asc" } } }, orderBy: { sortOrder: "asc" } });
 
+  const results = await eventResults(event.id);
   const categories: ExportCategory[] = [];
   for (const l of levels) {
     for (const c of l.categories) {
-      const r = await categoryResults(c.id);
+      const r = results.get(c.id);
       if (!r) continue;
       categories.push({
         level: l.name,
@@ -37,7 +38,7 @@ export async function GET() {
   }
   const champions = [];
   for (const l of levels.filter((x) => x.hasChampionship)) {
-    const ch = await levelChampionship(l.id);
+    const ch = await levelChampionship(l.id, results);
     if (ch && ch.rows.length) champions.push({ level: l.name, rows: ch.rows.map((r) => ({ place: r.place, name: r.name, placeSum: r.placeSum })) });
   }
   const buf = resultsWorkbook(event.name, categories, champions);

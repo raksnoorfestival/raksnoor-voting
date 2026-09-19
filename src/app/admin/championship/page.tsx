@@ -4,7 +4,7 @@ import { Badge, Card, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
-import { levelChampionship } from "@/lib/results";
+import { eventResults, levelChampionship } from "@/lib/results";
 import { NoEvent } from "../no-event";
 import { ChampionshipTieDecider } from "./tie-decider";
 
@@ -13,7 +13,8 @@ export default async function ChampionshipPage() {
   const event = await currentEvent();
   if (!event) return <NoEvent />;
   const levels = await db.level.findMany({ where: { eventId: event.id, hasChampionship: true }, orderBy: { sortOrder: "asc" } });
-  const championships = await Promise.all(levels.map((l) => levelChampionship(l.id)));
+  const results = await eventResults(event.id);
+  const championships = await Promise.all(levels.map((l) => levelChampionship(l.id, results)));
   return (
     <>
       <Title sub="The champion of a level is whoever competed in every category of that level and has the lowest sum of final places. Ties: more 1st places, then 2nd, then 3rd, then the jury.">Championship</Title>
