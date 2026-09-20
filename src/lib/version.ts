@@ -1,5 +1,5 @@
-// Netlify sets COMMIT_REF at build time; locally there is no such thing,
-// so the dev server never triggers a reload.
+// Set in next.config.ts from Netlify's COMMIT_REF at build time, and
+// inlined into the code; "dev" locally, so the dev server never reloads.
 export function appVersion(): string {
-  return process.env.COMMIT_REF ?? "dev";
+  return process.env.APP_VERSION ?? "dev";
 }
