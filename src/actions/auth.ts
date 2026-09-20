@@ -5,22 +5,9 @@ import { db } from "@/lib/db";
 import { checkPassword } from "@/lib/password";
 import { setSession, clearSession } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
-import { checkLoginAllowed, recordLoginFailure, recordLoginSuccess } from "@/lib/login-guard";
+import { guarded } from "@/lib/login-guard";
 
 export type FormState = { error?: string } | undefined;
-
-// Every sign-in goes through the same three steps: refuse while locked,
-// count a wrong try, forget the count on a right one.
-async function guarded(kind: string, who: string, verify: () => Promise<boolean>, wrong: string): Promise<string | null> {
-  const locked = await checkLoginAllowed(kind, who);
-  if (locked) return locked;
-  if (!(await verify())) {
-    const nowLocked = await recordLoginFailure(kind, who);
-    return nowLocked || wrong;
-  }
-  await recordLoginSuccess(kind, who);
-  return null;
-}
 
 export async function adminLogin(_: FormState, form: FormData): Promise<FormState> {
   const email = String(form.get("email") ?? "").trim().toLowerCase();
@@ -45,16 +32,8 @@ export async function judgeLogin(_: FormState, form: FormData): Promise<FormStat
   redirect("/judge");
 }
 
-export async function publicLogin(_: FormState, form: FormData): Promise<FormState> {
-  const password = String(form.get("password") ?? "").trim();
-  const event = await currentEvent();
-  if (!event) return { error: "There is no current event." };
-  if (!event.publicPassword) return { error: "Results are not open yet." };
-  const error = await guarded("public", "results", async () => password === event.publicPassword, "Wrong password.");
-  if (error) return { error };
-  await setSession({ role: "public", eventId: event.id });
-  redirect("/results");
-}
+// The public results sign-in is not a server action: see
+// src/app/results/session/route.ts for why.
 
 export async function logout(role: "admin" | "judge" | "public") {
   await clearSession(role);

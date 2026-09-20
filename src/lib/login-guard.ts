@@ -35,3 +35,17 @@ export async function recordLoginSuccess(kind: string, who: string) {
   const key = await keyFor(kind, who);
   await db.loginAttempt.deleteMany({ where: { key } });
 }
+
+// Every sign-in goes through the same three steps: refuse while locked,
+// count a wrong try, forget the count on a right one. Returns the message
+// to show, or null when the visitor is in.
+export async function guarded(kind: string, who: string, verify: () => Promise<boolean>, wrong: string): Promise<string | null> {
+  const locked = await checkLoginAllowed(kind, who);
+  if (locked) return locked;
+  if (!(await verify())) {
+    const nowLocked = await recordLoginFailure(kind, who);
+    return nowLocked || wrong;
+  }
+  await recordLoginSuccess(kind, who);
+  return null;
+}
