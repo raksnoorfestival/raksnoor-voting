@@ -76,7 +76,9 @@ export function ActionButton({
         if (confirmText && !window.confirm(confirmText)) return;
         start(async () => {
           try {
-            await action();
+            const note = await action();
+            // An action can hand back a sentence the admin must read.
+            if (typeof note === "string" && note) window.alert(note);
           } catch (e) {
             // A redirect() inside the action throws on purpose; let it through.
             if (typeof (e as { digest?: string })?.digest === "string" && (e as { digest: string }).digest.startsWith("NEXT_REDIRECT")) throw e;

@@ -12,7 +12,7 @@ export default async function LibraryPage() {
   ]);
   return (
     <>
-      <Title sub="The levels and categories the festival always has. A new event copies them; changing the library never touches an event already created, so past editions keep their history.">
+      <Title sub="The levels and categories the festival always has. A new event copies them. Until its first vote, the current event keeps following what you change here; past editions are never touched.">
         Category library
       </Title>
       <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
@@ -28,7 +28,7 @@ export default async function LibraryPage() {
                 <Field label="Order"><Input name="sortOrder" type="number" defaultValue={l.sortOrder} /></Field>
                 <label className="flex h-10 items-center gap-2 text-sm"><input type="checkbox" name="hasChampionship" defaultChecked={l.hasChampionship} /> Championship</label>
                 <SubmitButton variant="secondary">Save</SubmitButton>
-                <ActionButton action={deleteLibraryLevel.bind(null, l.id)} variant="danger" confirm={`Remove level "${l.name}" and its ${l.categories.length} categories from the library? Events already created keep theirs.`}>Delete</ActionButton>
+                <ActionButton action={deleteLibraryLevel.bind(null, l.id)} variant="danger" confirm={`Remove level "${l.name}" and its ${l.categories.length} categories from the library, and from the current event if nobody has voted yet?`}>Delete</ActionButton>
               </StateForm>
               <div className="mt-3 divide-y divide-neutral-100 border-t border-neutral-100 pt-2">
                 {l.categories.length === 0 && <div className="py-2 text-sm text-neutral-500">No categories in this level.</div>}
@@ -38,7 +38,7 @@ export default async function LibraryPage() {
                     <Field label="Category"><Input name="name" defaultValue={c.name} required /></Field>
                     <Field label="Order"><Input name="sortOrder" type="number" defaultValue={c.sortOrder} /></Field>
                     <SubmitButton variant="secondary">Save</SubmitButton>
-                    <ActionButton action={deleteLibraryCategory.bind(null, c.id)} variant="ghost" confirm={`Remove "${c.name}" from the library?`}>Remove</ActionButton>
+                    <ActionButton action={deleteLibraryCategory.bind(null, c.id)} variant="ghost" confirm={`Remove "${c.name}" from the library, and from the current event if nobody has voted yet?`}>Remove</ActionButton>
                   </StateForm>
                 ))}
               </div>
@@ -80,9 +80,9 @@ export default async function LibraryPage() {
           <Card className="text-xs text-neutral-600">
             <div className="mb-1 font-semibold text-neutral-800">How it works</div>
             <ol className="list-decimal space-y-1 pl-4">
-              <li>Keep the library up to date once a year.</li>
               <li>Create the new event in <Badge>Events</Badge>: it copies the library.</li>
-              <li>Added a category later? On the event, in Events, use &quot;Add what is missing from the library&quot;.</li>
+              <li>Until the first vote, every change here also goes to the current event: new, renamed or removed levels and categories.</li>
+              <li>From the first vote on, the event is on its own. Past editions are never touched.</li>
             </ol>
           </Card>
         </div>

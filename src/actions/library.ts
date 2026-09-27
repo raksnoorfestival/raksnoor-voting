@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
+import { followCategoryCreated, followCategoryDeleted, followCategoryUpdated, followLevelCreated, followLevelDeleted, followLevelUpdated } from "@/lib/library-follow";
 
 export type FormState = { error?: string; ok?: string } | undefined;
 
@@ -21,7 +22,16 @@ function friendly(e: unknown, what: string): FormState {
 const refresh = () => {
   revalidatePath("/admin/library");
   revalidatePath("/admin/events");
+  revalidatePath("/admin/categories");
+  revalidatePath("/admin/levels");
+  revalidatePath("/admin");
 };
+
+// Every function that writes the library ends by calling its follow*
+// twin (src/lib/library-follow.ts): the current event keeps up with the
+// library until its first vote. See that file for the rule.
+
+const withEvent = (base: string, followed: string | null) => (followed ? `${base} ${followed}` : base);
 
 // ---------- Levels ----------
 
@@ -29,14 +39,16 @@ export async function createLibraryLevel(_: FormState, form: FormData): Promise<
   await requireAdmin();
   const name = str(form, "name");
   if (!name) return { error: "Give the level a name." };
+  const hasChampionship = form.get("hasChampionship") === "on";
   const last = await db.libraryLevel.findFirst({ orderBy: { sortOrder: "desc" } });
   try {
-    await db.libraryLevel.create({ data: { name, sortOrder: (last?.sortOrder ?? 0) + 1, hasChampionship: form.get("hasChampionship") === "on" } });
+    await db.libraryLevel.create({ data: { name, sortOrder: (last?.sortOrder ?? 0) + 1, hasChampionship } });
   } catch (e) {
     return friendly(e, "level");
   }
+  const followed = await followLevelCreated(name, hasChampionship);
   refresh();
-  return { ok: `Level "${name}" added to the library.` };
+  return { ok: withEvent(`Level "${name}" added to the library.`, followed) };
 }
 
 export async function updateLibraryLevel(_: FormState, form: FormData): Promise<FormState> {
@@ -44,20 +56,28 @@ export async function updateLibraryLevel(_: FormState, form: FormData): Promise<
   const id = str(form, "id");
   const name = str(form, "name");
   if (!name) return { error: "Give the level a name." };
+  const before = await db.libraryLevel.findUnique({ where: { id } });
+  const data = { name, sortOrder: int(form, "sortOrder"), hasChampionship: form.get("hasChampionship") === "on" };
   try {
-    await db.libraryLevel.update({ where: { id }, data: { name, sortOrder: int(form, "sortOrder"), hasChampionship: form.get("hasChampionship") === "on" } });
+    await db.libraryLevel.update({ where: { id }, data });
   } catch (e) {
     return friendly(e, "level");
   }
+  const followed = before ? await followLevelUpdated(before.name, data) : null;
   refresh();
-  return { ok: "Saved." };
+  return { ok: withEvent("Saved.", followed) };
 }
 
-export async function deleteLibraryLevel(id: string) {
+// Delete buttons show the returned sentence, so the admin learns when the
+// festival kept something (it had participants).
+export async function deleteLibraryLevel(id: string): Promise<string | undefined> {
   await requireAdmin();
-  // Cascade removes its categories; events already created keep their copies.
+  const lib = await db.libraryLevel.findUnique({ where: { id } });
+  // Cascade removes its categories from the library.
   await db.libraryLevel.delete({ where: { id } });
+  const followed = lib ? await followLevelDeleted(lib.name) : null;
   refresh();
+  return followed && !followed.startsWith("Also") ? `Removed from the library. ${followed}` : undefined;
 }
 
 // ---------- Categories ----------
@@ -68,13 +88,15 @@ export async function createLibraryCategory(_: FormState, form: FormData): Promi
   const name = str(form, "name");
   if (!levelId || !name) return { error: "Choose a level and give the category a name." };
   const last = await db.libraryCategory.findFirst({ where: { levelId }, orderBy: { sortOrder: "desc" } });
+  let level;
   try {
-    await db.libraryCategory.create({ data: { levelId, name, sortOrder: (last?.sortOrder ?? 0) + 1 } });
+    level = (await db.libraryCategory.create({ data: { levelId, name, sortOrder: (last?.sortOrder ?? 0) + 1 }, include: { level: true } })).level;
   } catch (e) {
     return friendly(e, "category");
   }
+  const followed = await followCategoryCreated(level, name);
   refresh();
-  return { ok: `Category "${name}" added.` };
+  return { ok: withEvent(`Category "${name}" added to the library.`, followed) };
 }
 
 export async function updateLibraryCategory(_: FormState, form: FormData): Promise<FormState> {
@@ -82,19 +104,25 @@ export async function updateLibraryCategory(_: FormState, form: FormData): Promi
   const id = str(form, "id");
   const name = str(form, "name");
   if (!name) return { error: "Give the category a name." };
+  const before = await db.libraryCategory.findUnique({ where: { id }, include: { level: true } });
+  const data = { name, sortOrder: int(form, "sortOrder") };
   try {
-    await db.libraryCategory.update({ where: { id }, data: { name, sortOrder: int(form, "sortOrder") } });
+    await db.libraryCategory.update({ where: { id }, data });
   } catch (e) {
     return friendly(e, "category");
   }
+  const followed = before ? await followCategoryUpdated(before.level.name, before.name, data) : null;
   refresh();
-  return { ok: "Saved." };
+  return { ok: withEvent("Saved.", followed) };
 }
 
-export async function deleteLibraryCategory(id: string) {
+export async function deleteLibraryCategory(id: string): Promise<string | undefined> {
   await requireAdmin();
+  const lib = await db.libraryCategory.findUnique({ where: { id }, include: { level: true } });
   await db.libraryCategory.delete({ where: { id } });
+  const followed = lib ? await followCategoryDeleted(lib.level.name, lib.name) : null;
   refresh();
+  return followed && !followed.startsWith("Also") ? `Removed from the library. ${followed}` : undefined;
 }
 
 // ---------- Between library and events ----------
