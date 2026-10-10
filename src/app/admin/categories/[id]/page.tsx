@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { addEntry, clearTie, deleteCategory, removeEntry, setCategoryStatus, setResultsVisible, updateCategory } from "@/actions/admin";
+import { addEntry, clearTie, deleteCategory, removeEntry, setCategoryJudges, setCategoryStatus, setResultsVisible, updateCategory } from "@/actions/admin";
 import { ActionButton, StateForm, SubmitButton } from "@/components/forms";
 import { ResultsTable, TieNotice } from "@/components/results-table";
 import { Badge, Card, Field, Input, Notice, Select, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { categoryResults } from "@/lib/results";
+import { judgeCoversCategory } from "@/lib/judge-access";
 import { EntryNumber } from "./entry-number";
 import { TieDecider } from "./tie-decider";
 import { AutoRefresh } from "@/components/auto-refresh";
@@ -17,10 +18,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
   const results = await categoryResults(id);
   if (!results) notFound();
   const { category, judges, rows } = results;
-  const [levels, participants] = await Promise.all([
+  const [levels, participants, eventJudges] = await Promise.all([
     db.level.findMany({ where: { eventId: category.eventId }, orderBy: { sortOrder: "asc" } }),
     db.participant.findMany({ where: { eventId: category.eventId }, orderBy: { name: "asc" } }),
+    db.judge.findMany({ where: { eventId: category.eventId, active: true }, include: { categories: true }, orderBy: { sortOrder: "asc" } }),
   ]);
+  // Who votes here, by the same rule the judges' tablets use.
+  const onPanel = eventJudges.filter((j) => judgeCoversCategory(j, id)).map((j) => j.id);
   const inCategory = new Set(category.entries.map((e) => e.participantId));
   const available = participants.filter((p) => !inCategory.has(p.id));
   const submitted = new Set(category.sheets.filter((s) => s.submittedAt).map((s) => s.judgeId));
@@ -137,6 +141,24 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                 <SubmitButton>Add</SubmitButton>
               </StateForm>
             )}
+          </Card>
+          <Card>
+            <h2 className="mb-1 font-semibold">Judges</h2>
+            <p className="mb-3 text-xs text-neutral-600">Who votes in this category. Unticking someone takes this category off their tablet; their other categories stay as they are.</p>
+            <StateForm action={setCategoryJudges}>
+              <input type="hidden" name="categoryId" value={id} />
+              {/* Keyed on the saved panel: after a save the boxes show what the server has, and the message stays. */}
+              <div key={onPanel.join(",")} className="space-y-1">
+                {eventJudges.map((j) => (
+                  <label key={j.id} className="flex items-center gap-2 py-0.5 text-sm">
+                    <input type="checkbox" name="judgeId" value={j.id} defaultChecked={onPanel.includes(j.id)} className="h-4 w-4 accent-wine" />
+                    {j.name}
+                  </label>
+                ))}
+                {eventJudges.length === 0 && <p className="text-xs text-neutral-500">No judges yet. Add them in Judges.</p>}
+              </div>
+              <SubmitButton variant="secondary">Save judges</SubmitButton>
+            </StateForm>
           </Card>
           <Card>
             <h2 className="mb-3 font-semibold">Edit category</h2>

@@ -503,3 +503,48 @@ export async function setJudgeCategories(_: FormState, form: FormData): Promise<
   refresh("/admin/judges", "/admin/categories", "/judge");
   return { ok: all ? "Votes in every category." : `Votes in ${valid.length} categor${valid.length === 1 ? "y" : "ies"}.` };
 }
+
+// The panel of one category, set from the category page: tick who votes.
+// Each judge keeps the rest of their categories as they were. A judge on
+// "All categories" who is unticked here switches to an explicit list:
+// every category of the event except this one. A judge who already scored
+// in this category cannot be taken off it, or the scores would silently
+// drop out of the results.
+export async function setCategoryJudges(_: FormState, form: FormData): Promise<FormState> {
+  await requireAdmin();
+  const categoryId = str(form, "categoryId");
+  const on = new Set(form.getAll("judgeId").map(String));
+  const category = await db.category.findUnique({ where: { id: categoryId } });
+  if (!category) return { error: "Unknown category." };
+  if (on.size === 0) return { error: "Tick at least one judge." };
+  const [judges, scored, all] = await Promise.all([
+    db.judge.findMany({ where: { eventId: category.eventId, active: true }, include: { categories: true } }),
+    db.score.findMany({ where: { entry: { categoryId } }, select: { judgeId: true }, distinct: ["judgeId"] }),
+    db.category.findMany({ where: { eventId: category.eventId }, select: { id: true } }),
+  ]);
+  const haveScores = new Set(scored.map((s) => s.judgeId));
+  const blocked = judges.filter((j) => !on.has(j.id) && haveScores.has(j.id));
+  if (blocked.length) return { error: `${blocked.map((j) => j.name).join(", ")} already scored here and stays on the panel.` };
+
+  const ops = [];
+  for (const j of judges) {
+    const covers = j.allCategories || j.categories.some((c) => c.categoryId === categoryId);
+    const wanted = on.has(j.id);
+    if (covers === wanted) continue;
+    if (wanted) ops.push(db.judgeCategory.create({ data: { judgeId: j.id, categoryId } }));
+    else if (j.allCategories) {
+      ops.push(
+        db.judge.update({ where: { id: j.id }, data: { allCategories: false } }),
+        db.judgeCategory.deleteMany({ where: { judgeId: j.id } }),
+        db.judgeCategory.createMany({ data: all.filter((c) => c.id !== categoryId).map((c) => ({ judgeId: j.id, categoryId: c.id })) }),
+      );
+    } else ops.push(db.judgeCategory.deleteMany({ where: { judgeId: j.id, categoryId } }));
+  }
+  await db.$transaction(ops);
+  // Someone ticked back into every category is simply "All categories" again.
+  for (const j of await db.judge.findMany({ where: { eventId: category.eventId, allCategories: false }, include: { _count: { select: { categories: true } } } })) {
+    if (j._count.categories >= all.length) await db.$transaction([db.judgeCategory.deleteMany({ where: { judgeId: j.id } }), db.judge.update({ where: { id: j.id }, data: { allCategories: true } })]);
+  }
+  refresh(`/admin/categories/${categoryId}`, "/admin/judges", "/admin/categories", "/judge", `/judge/${categoryId}`);
+  return { ok: `${on.size} judge${on.size === 1 ? "" : "s"} on this category.` };
+}
