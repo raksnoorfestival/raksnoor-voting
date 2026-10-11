@@ -33,10 +33,17 @@ export default async function LibraryPage() {
               <div className="mt-3 divide-y divide-neutral-100 border-t border-neutral-100 pt-2">
                 {l.categories.length === 0 && <div className="py-2 text-sm text-neutral-500">No categories in this level.</div>}
                 {l.categories.map((c) => (
-                  <StateForm key={c.id} action={updateLibraryCategory} className="grid gap-2 py-2 sm:grid-cols-[1fr_80px_auto_auto] sm:items-end">
+                  <StateForm key={c.id} action={updateLibraryCategory} className="grid gap-2 py-2 sm:grid-cols-[1fr_80px_auto_auto_auto] sm:items-end">
                     <input type="hidden" name="id" value={c.id} />
                     <Field label="Category"><Input name="name" defaultValue={c.name} required /></Field>
                     <Field label="Order"><Input name="sortOrder" type="number" defaultValue={c.sortOrder} /></Field>
+                    {l.hasChampionship ? (
+                      <label className="flex h-10 items-center gap-2 text-sm" title="Counts for the championship">
+                        <input type="checkbox" name="countsForChampionship" defaultChecked={c.countsForChampionship} className="h-4 w-4 accent-wine" /> Championship
+                      </label>
+                    ) : (
+                      <input type="hidden" name="countsForChampionship" value="on" />
+                    )}
                     <SubmitButton variant="secondary">Save</SubmitButton>
                     <ActionButton action={deleteLibraryCategory.bind(null, c.id)} variant="ghost" confirm={`Remove "${c.name}" from the library, and from the current event if nobody has voted yet?`}>Remove</ActionButton>
                   </StateForm>

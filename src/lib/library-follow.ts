@@ -77,7 +77,7 @@ export async function followCategoryCreated(level: { name: string; hasChampionsh
   return `Also in ${event.name}.`;
 }
 
-export async function followCategoryUpdated(levelName: string, oldName: string, data: { name: string; sortOrder: number }): Promise<string | null> {
+export async function followCategoryUpdated(levelName: string, oldName: string, data: { name: string; sortOrder: number; countsForChampionship?: boolean }): Promise<string | null> {
   const event = await preparingEvent();
   if (!event) return null;
   const l = await eventLevel(event.id, levelName);

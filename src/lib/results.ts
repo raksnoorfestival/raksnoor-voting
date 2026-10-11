@@ -76,9 +76,13 @@ export async function levelChampionship(levelId: string, known?: Map<string, Cat
     include: { categories: { orderBy: { sortOrder: "asc" } }, championshipDecisions: true },
   });
   if (!level) return null;
+  // Only the categories that count: the rest of the level is left out of
+  // places, eligibility, "all closed" and "all public" alike, because every
+  // screen reads them from what this returns.
+  const counting = championshipCategories(level.categories);
   const perCategory = known
-    ? level.categories.map((c) => known.get(c.id) ?? null)
-    : await Promise.all(level.categories.map((c) => categoryResults(c.id)));
+    ? counting.map((c) => known.get(c.id) ?? null)
+    : await Promise.all(counting.map((c) => categoryResults(c.id)));
   const places = perCategory
     .filter((r): r is CategoryResults => r !== null)
     .map((r) => ({
@@ -91,13 +95,18 @@ export async function levelChampionship(levelId: string, known?: Map<string, Cat
   );
   const participants = await db.participant.findMany({ where: { id: { in: ranked.map((r) => r.participantId) } } });
   const names = new Map(participants.map((p) => [p.id, p.name]));
-  const allClosed = level.categories.length > 0 && level.categories.every((c) => c.status === "CLOSED");
+  const allClosed = counting.length > 0 && counting.every((c) => c.status === "CLOSED");
   return {
     level,
-    categories: level.categories,
+    categories: counting,
     rows: ranked.map((r) => ({ ...r, name: names.get(r.participantId) ?? "?" })),
     allClosed,
   };
 }
 
 export type Ranked = RankedEntry;
+
+// The categories of a level that make up its championship.
+export function championshipCategories<T extends { countsForChampionship: boolean }>(categories: T[]): T[] {
+  return categories.filter((c) => c.countsForChampionship);
+}

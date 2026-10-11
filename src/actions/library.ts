@@ -105,7 +105,7 @@ export async function updateLibraryCategory(_: FormState, form: FormData): Promi
   const name = str(form, "name");
   if (!name) return { error: "Give the category a name." };
   const before = await db.libraryCategory.findUnique({ where: { id }, include: { level: true } });
-  const data = { name, sortOrder: int(form, "sortOrder") };
+  const data = { name, sortOrder: int(form, "sortOrder"), countsForChampionship: form.get("countsForChampionship") === "on" };
   try {
     await db.libraryCategory.update({ where: { id }, data });
   } catch (e) {
@@ -147,7 +147,7 @@ export async function copyLibraryToEvent(eventId: string): Promise<{ levels: num
     for (const c of l.categories) {
       if (level.categories.some((x) => x.name.toLowerCase() === c.name.toLowerCase())) continue;
       const last = Math.max(0, ...level.categories.map((x) => x.sortOrder));
-      const created = await db.category.create({ data: { eventId, levelId: level.id, name: c.name, sortOrder: last + 1 } });
+      const created = await db.category.create({ data: { eventId, levelId: level.id, name: c.name, sortOrder: last + 1, countsForChampionship: c.countsForChampionship } });
       level.categories.push(created);
       categories++;
     }
@@ -182,7 +182,7 @@ export async function fillLibraryFromEvent(_: FormState, form: FormData): Promis
     }
     for (const c of l.categories) {
       if (lib.categories.some((x) => x.name.toLowerCase() === c.name.toLowerCase())) continue;
-      lib.categories.push(await db.libraryCategory.create({ data: { levelId: lib.id, name: c.name, sortOrder: c.sortOrder } }));
+      lib.categories.push(await db.libraryCategory.create({ data: { levelId: lib.id, name: c.name, sortOrder: c.sortOrder, countsForChampionship: c.countsForChampionship } }));
       added++;
     }
   }

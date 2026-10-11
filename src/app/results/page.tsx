@@ -3,7 +3,7 @@ import { Badge, Brand, Card, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requirePublicAccess } from "@/lib/public-access";
 import { AutoRefresh } from "@/components/auto-refresh";
-import { eventResults } from "@/lib/results";
+import { championshipCategories, eventResults } from "@/lib/results";
 import { FindMe, type Person } from "./find-me";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +20,7 @@ export default async function ResultsHome() {
   const shown = levels
     .map((l) => ({
       ...l,
-      championshipReady: l.hasChampionship && l.categories.length > 0 && l.categories.every((c) => c.resultsVisible),
+      championshipReady: l.hasChampionship && championshipCategories(l.categories).length > 0 && championshipCategories(l.categories).every((c) => c.resultsVisible),
       categories: l.categories.filter((c) => c.resultsVisible),
     }))
     .filter((l) => l.categories.length > 0);

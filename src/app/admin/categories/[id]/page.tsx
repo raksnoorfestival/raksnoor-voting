@@ -173,6 +173,16 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                 </Select>
               </Field>
               <Field label="Order within level"><Input name="sortOrder" type="number" defaultValue={category.sortOrder} /></Field>
+              {category.level.hasChampionship ? (
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" name="countsForChampionship" defaultChecked={category.countsForChampionship} className="h-4 w-4 accent-wine" />
+                  Counts for the {category.level.name} championship
+                </label>
+              ) : (
+                // A level without a championship: keep the flag on, so turning
+                // the championship on later includes this category.
+                <input type="hidden" name="countsForChampionship" value="on" />
+              )}
               <SubmitButton variant="secondary">Save</SubmitButton>
             </StateForm>
             <div className="mt-4 border-t border-neutral-100 pt-3">

@@ -171,7 +171,7 @@ export async function updateCategory(_: FormState, form: FormData): Promise<Form
   const levelId = str(form, "levelId");
   if (!name || !levelId) return { error: "Choose a level and give the category a name." };
   try {
-    await db.category.update({ where: { id }, data: { name, levelId, sortOrder: int(form, "sortOrder") } });
+    await db.category.update({ where: { id }, data: { name, levelId, sortOrder: int(form, "sortOrder"), countsForChampionship: form.get("countsForChampionship") === "on" } });
   } catch (e) {
     return friendly(e, "category");
   }

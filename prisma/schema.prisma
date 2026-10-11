@@ -66,6 +66,10 @@ model Category {
   status         CategoryStatus @default(DRAFT)
   // Results reach the public page only when the admin flips this.
   resultsVisible Boolean        @default(false)
+  // Whether this category is one of the level's championship categories.
+  // Off for an extra (Master Fusion in 2026): it neither adds places nor
+  // makes it compulsory to have danced it to be eligible.
+  countsForChampionship Boolean @default(true)
 
   event   Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
   level   Level           @relation(fields: [levelId], references: [id], onDelete: Cascade)
@@ -207,6 +211,7 @@ model LibraryCategory {
   levelId   String
   name      String
   sortOrder Int    @default(0)
+  countsForChampionship Boolean @default(true)
 
   level LibraryLevel @relation(fields: [levelId], references: [id], onDelete: Cascade)
 

@@ -35,6 +35,7 @@ export default async function CategoriesPage() {
                     <Link href={`/admin/categories/${c.id}`} className="font-medium hover:text-wine">
                       {c.name}
                       <span className="ml-2 text-sm font-normal text-neutral-500">{c._count.entries} participants</span>
+                      {l.hasChampionship && !c.countsForChampionship && <span className="ml-2 text-xs font-normal text-neutral-500">(not in championship)</span>}
                     </Link>
                     <QuickControls id={c.id} status={c.status} resultsVisible={c.resultsVisible} />
                   </div>
