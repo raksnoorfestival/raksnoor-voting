@@ -30,6 +30,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="min-h-screen antialiased">
         {children}
+        {/* Which build this screen runs, to check a tablet against what was
+            published: the same short code the publisher reports. */}
+        <footer className="pointer-events-none fixed bottom-1 left-2 z-10 text-[10px] text-neutral-400">Version {appVersion().slice(0, 7)}</footer>
         <UpdateWatch version={appVersion()} />
       </body>
     </html>
