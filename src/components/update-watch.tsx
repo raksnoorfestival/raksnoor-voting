@@ -21,11 +21,20 @@ export function UpdateWatch({ version }: { version: string }) {
       }
       return false;
     };
+    // A judge tablet with scores still waiting to be sent (the hall's wifi
+    // dropped) does not reload: they are safe in storage, but a reload now
+    // could land on the browser's own "no connection" page.
+    const scoresWaiting = () => {
+      try {
+        for (let i = 0; i < localStorage.length; i++) if (localStorage.key(i)?.startsWith("rn-pending:")) return true;
+      } catch {}
+      return false;
+    };
     const check = async () => {
       try {
         const r = await fetch("/api/version", { cache: "no-store" });
         const { version: live } = await r.json();
-        if (!stopped && live && live !== version && !typing()) window.location.reload();
+        if (!stopped && live && live !== version && !typing() && !scoresWaiting()) window.location.reload();
       } catch {
         // Offline or a hiccup: try again next minute.
       }

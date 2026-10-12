@@ -40,7 +40,10 @@ export default async function ChampionshipPage() {
               </div>
               <p className="mb-3 text-xs text-neutral-500">Categories: {ch.categories.map((c) => c.name).join(", ") || "none"}. The public sees this once every one of them is on the public page.</p>
               <ChampionshipTable championship={ch} />
-              {groups.size > 0 && (
+              {groups.size > 0 && !ch.allClosed && (
+                <p className="mt-3 text-xs text-neutral-500">Ties are decided here once every category of the championship is closed.</p>
+              )}
+              {groups.size > 0 && ch.allClosed && (
                 <div className="mt-3 space-y-2">
                   {[...groups.entries()].map(([place, group]) => (
                     <ChampionshipTieDecider key={place} levelId={ch.level.id} place={place} rows={group.map((r) => ({ id: r.participantId, name: r.name }))} />

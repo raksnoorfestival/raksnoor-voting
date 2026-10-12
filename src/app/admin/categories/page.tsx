@@ -7,6 +7,8 @@ import { requireAdmin } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
 import { NoEvent } from "../no-event";
 import { QuickControls } from "./quick-controls";
+import { eventResults } from "@/lib/results";
+import { closeQuestion } from "@/lib/close-check";
 
 export default async function CategoriesPage() {
   await requireAdmin();
@@ -17,6 +19,7 @@ export default async function CategoriesPage() {
     include: { categories: { include: { _count: { select: { entries: true } } }, orderBy: { sortOrder: "asc" } } },
     orderBy: { sortOrder: "asc" },
   });
+  const results = await eventResults(event.id);
   return (
     <>
       <Title sub="One category per level and style. One tap opens or closes a category to the judges. Results can go public only once the category is closed. Tap the name for scores, participants and ties.">Categories</Title>
@@ -37,7 +40,7 @@ export default async function CategoriesPage() {
                       <span className="ml-2 text-sm font-normal text-neutral-500">{c._count.entries} participants</span>
                       {l.hasChampionship && !c.countsForChampionship && <span className="ml-2 text-xs font-normal text-neutral-500">(not in championship)</span>}
                     </Link>
-                    <QuickControls id={c.id} status={c.status} resultsVisible={c.resultsVisible} />
+                    <QuickControls id={c.id} status={c.status} resultsVisible={c.resultsVisible} closeQuestion={results.get(c.id) ? closeQuestion(results.get(c.id)!) : undefined} />
                   </div>
                 ))}
               </div>

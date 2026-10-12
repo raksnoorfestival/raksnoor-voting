@@ -226,6 +226,7 @@ export async function createParticipant(_: FormState, form: FormData): Promise<F
   for (const c of categories) {
     const last = await db.entry.findFirst({ where: { categoryId: c.id }, orderBy: { number: "desc" } });
     await db.entry.create({ data: { categoryId: c.id, participantId: participant.id, number: (last?.number ?? 0) + 1 } });
+    await unsubmit(c.id);
   }
   refresh("/admin/participants", "/admin/categories");
   const where = categories.map((c) => `${c.level.name} / ${c.name}`).join(", ");
@@ -311,8 +312,9 @@ export async function addEntry(_: FormState, form: FormData): Promise<FormState>
   } catch (e) {
     return friendly(e, "entry");
   }
-  refresh(`/admin/categories/${categoryId}`, `/judge/${categoryId}`);
-  return { ok: "Added." };
+  const reopened = await unsubmit(categoryId);
+  refresh(`/admin/categories/${categoryId}`, `/judge/${categoryId}`, "/judge");
+  return { ok: reopened ? `Added. ${reopened} judge${reopened === 1 ? " had" : "s had"} already submitted; they are asked to score her and submit again.` : "Added." };
 }
 
 export async function setEntryNumber(entryId: string, number: number) {
@@ -321,12 +323,25 @@ export async function setEntryNumber(entryId: string, number: number) {
   refresh(`/admin/categories/${e.categoryId}`, `/judge/${e.categoryId}`);
 }
 
+// Someone withdraws from a category: her entry goes, with any score given
+// to it (by mistake, or before anyone knew). Her other categories are not
+// touched. Not once the category is closed: its results may be public.
 export async function removeEntry(entryId: string) {
   await requireAdmin();
-  const n = await db.score.count({ where: { entryId } });
-  if (n > 0) throw new Error("This entry already has scores and cannot be removed.");
-  const e = await db.entry.delete({ where: { id: entryId } });
-  refresh(`/admin/categories/${e.categoryId}`, `/judge/${e.categoryId}`);
+  const entry = await db.entry.findUnique({ where: { id: entryId }, include: { category: true } });
+  if (!entry) return;
+  if (entry.category.status === "CLOSED") throw new Error("This category is closed. Reopen it first if she really must come out.");
+  await db.entry.delete({ where: { id: entryId } });
+  refresh(`/admin/categories/${entry.categoryId}`, `/judge/${entry.categoryId}`, "/judge", "/results");
+}
+
+// Clears "submitted" for every judge of a category that is open, so a
+// dancer added late shows up as still to score on their list.
+async function unsubmit(categoryId: string): Promise<number> {
+  const c = await db.category.findUnique({ where: { id: categoryId } });
+  if (!c || c.status !== "OPEN") return 0;
+  const r = await db.judgeSheet.updateMany({ where: { categoryId, submittedAt: { not: null } }, data: { submittedAt: null } });
+  return r.count;
 }
 
 // The admin's word on a tie the rules could not break. `order` lists entry
@@ -343,10 +358,12 @@ export async function clearTie(categoryId: string) {
   refresh(`/admin/categories/${categoryId}`, `/results/${categoryId}`, "/admin/championship");
 }
 
+// One tie at a time: only the decisions of the people in THIS tie are
+// replaced, so deciding 3rd place keeps the decision already made for 1st.
 export async function decideChampionshipTie(levelId: string, order: string[]) {
   await requireAdmin();
   await db.$transaction([
-    db.championshipDecision.deleteMany({ where: { levelId } }),
+    db.championshipDecision.deleteMany({ where: { levelId, participantId: { in: order } } }),
     ...order.map((participantId, i) => db.championshipDecision.create({ data: { levelId, participantId, tieOrder: i + 1 } })),
   ]);
   refresh("/admin/championship", "/results");

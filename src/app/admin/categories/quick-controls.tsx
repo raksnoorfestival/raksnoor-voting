@@ -8,7 +8,10 @@ type Status = "DRAFT" | "OPEN" | "CLOSED";
 // One tap opens or closes a category, one tap shows or hides its results.
 // Same colours as the badges elsewhere. Results can only go public once
 // the category is closed (the server refuses otherwise).
-export function QuickControls({ id, status, resultsVisible }: { id: string; status: Status; resultsVisible: boolean }) {
+// Closing asks the same question as the category page (judges submitted,
+// dancers without scores); reopening a closed category asks too, since it
+// takes the results off the public page.
+export function QuickControls({ id, status, resultsVisible, closeQuestion }: { id: string; status: Status; resultsVisible: boolean; closeQuestion?: string }) {
   const [pending, start] = useTransition();
   const next: Status = status === "OPEN" ? "CLOSED" : "OPEN";
   const statusClass =
@@ -24,7 +27,11 @@ export function QuickControls({ id, status, resultsVisible }: { id: string; stat
         type="button"
         disabled={pending}
         title={status === "OPEN" ? "Tap to close to the judges" : "Tap to open to the judges"}
-        onClick={() => start(() => setCategoryStatus(id, next))}
+        onClick={() => {
+          if (status === "OPEN" && closeQuestion && !window.confirm(closeQuestion)) return;
+          if (status === "CLOSED" && !window.confirm(resultsVisible ? "Reopen this category? Its results leave the public page and judges can change scores again." : "Reopen this category? Judges will be able to change their scores again.")) return;
+          start(() => setCategoryStatus(id, next));
+        }}
         className={`h-7 min-w-16 rounded-full px-3 text-xs font-semibold transition disabled:opacity-50 ${statusClass}`}
       >
         {pending ? "..." : label}

@@ -6,6 +6,7 @@ import { checkPassword } from "@/lib/password";
 import { setSession, clearSession } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
 import { guarded } from "@/lib/login-guard";
+import { matchJudge } from "@/lib/judge-name";
 
 export type FormState = { error?: string } | undefined;
 
@@ -24,8 +25,7 @@ export async function judgeLogin(_: FormState, form: FormData): Promise<FormStat
   const password = String(form.get("password") ?? "");
   const event = await currentEvent();
   if (!event) return { error: "There is no current event. Ask the organisation." };
-  // Name match ignores case so a tablet with caps lock still gets in.
-  const judge = await db.judge.findFirst({ where: { eventId: event.id, active: true, name: { equals: name, mode: "insensitive" } } });
+  const judge = matchJudge(await db.judge.findMany({ where: { eventId: event.id, active: true } }), name);
   const error = await guarded("judge", name, async () => !!judge && (await checkPassword(password, judge.passwordHash)), "Wrong name or password.");
   if (error) return { error };
   await setSession({ role: "judge", id: judge!.id, name: judge!.name, eventId: event.id });

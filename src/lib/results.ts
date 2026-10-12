@@ -8,6 +8,17 @@ type LoadedCategory = Category & { level: Level; entries: (Entry & { participant
 // The panel can change from level to level (in 2025 the fifth judge did).
 // While a category is open every judge of the category is expected; once
 // it is closed, a judge who scored nothing in it was not on that panel.
+//
+// A judge who gave scores in a category is ALWAYS on its panel, whatever
+// the Judges page says today: deactivating her when she leaves on day 3, or
+// unticking the category from her list, must never take her scores out of
+// results that were already worked out (and maybe announced). Callers pass
+// the assigned panel; the scorers are added here, so no screen can forget.
+function withScorers(assigned: Judge[], everyone: Judge[], scores: Score[]): Judge[] {
+  const scored = new Set(scores.map((s) => s.judgeId));
+  const ids = new Set(assigned.map((j) => j.id));
+  return everyone.filter((j) => ids.has(j.id) || scored.has(j.id));
+}
 function build(category: LoadedCategory, candidates: Judge[], criteria: Criterion[], scores: Score[]) {
   const scored = new Set(scores.map((s) => s.judgeId));
   const judges = category.status === "CLOSED" ? candidates.filter((j) => scored.has(j.id)) : candidates;
@@ -28,12 +39,13 @@ export async function categoryResults(categoryId: string) {
     },
   });
   if (!category) return null;
-  const [judges, criteria, scores] = await Promise.all([
+  const [assigned, everyone, criteria, scores] = await Promise.all([
     db.judge.findMany({ where: { eventId: category.eventId, ...judgesOfCategory(categoryId) }, orderBy: { sortOrder: "asc" } }),
+    db.judge.findMany({ where: { eventId: category.eventId }, orderBy: { sortOrder: "asc" } }),
     db.criterion.findMany({ where: { eventId: category.eventId }, orderBy: { priority: "asc" } }),
     db.score.findMany({ where: { entry: { categoryId } } }),
   ]);
-  return build(category, judges, criteria, scores);
+  return build(category, withScorers(assigned, everyone, scores), criteria, scores);
 }
 
 export type CategoryResults = NonNullable<Awaited<ReturnType<typeof categoryResults>>>;
@@ -61,8 +73,9 @@ export async function eventResults(eventId: string): Promise<Map<string, Categor
   }
   const out = new Map<string, CategoryResults>();
   for (const c of categories) {
-    const panel = judges.filter((j) => judgeCoversCategory(j, c.id));
-    out.set(c.id, build(c, panel, criteria, scoresByCategory.get(c.id) ?? []));
+    const own = scoresByCategory.get(c.id) ?? [];
+    const panel = withScorers(judges.filter((j) => judgeCoversCategory(j, c.id)), judges, own);
+    out.set(c.id, build(c, panel, criteria, own));
   }
   return out;
 }

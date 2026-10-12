@@ -16,7 +16,9 @@ const COOKIE: Record<Session["role"], string> = {
 };
 const MAX_AGE: Record<Session["role"], number> = {
   admin: 60 * 60 * 24 * 7,
-  judge: 60 * 60 * 24,
+  // A week, and renewed by every saved score (renewJudgeSession), so a
+  // judge who signs in on day 1 is never thrown out mid-category on day 2.
+  judge: 60 * 60 * 24 * 7,
   public: 60 * 60 * 24,
 };
 
@@ -55,6 +57,14 @@ async function read<T extends Session>(role: T["role"]): Promise<T | null> {
   } catch {
     return null;
   }
+}
+
+// Gives an active judge a fresh week. Called from the score action, so
+// it runs often but only rewrites the cookie once a day at most.
+export async function renewJudgeSession(s: JudgeSession & { iat?: number }) {
+  const issued = (s.iat ?? 0) * 1000;
+  if (Date.now() - issued < 24 * 60 * 60 * 1000) return;
+  await setSession({ role: "judge", id: s.id, name: s.name, eventId: s.eventId });
 }
 
 export const getAdmin = () => read<AdminSession>("admin");

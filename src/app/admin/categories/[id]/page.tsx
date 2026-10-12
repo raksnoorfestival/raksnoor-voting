@@ -8,9 +8,18 @@ import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { categoryResults } from "@/lib/results";
 import { judgeCoversCategory } from "@/lib/judge-access";
+import { closeQuestion } from "@/lib/close-check";
 import { EntryNumber } from "./entry-number";
 import { TieDecider } from "./tie-decider";
 import { AutoRefresh } from "@/components/auto-refresh";
+
+// Withdrawing a dancer from this category only; say if scores go with her.
+function withdrawQuestion(name: string, row: { judges: { byCriterion: (number | null)[] }[] } | undefined): string {
+  const given = row ? row.judges.reduce((a, j) => a + j.byCriterion.filter((v) => v !== null).length, 0) : 0;
+  return given
+    ? `Remove ${name} from this category? ${given} score${given === 1 ? "" : "s"} already given to her here will be deleted. Her other categories stay as they are.`
+    : `Remove ${name} from this category? Her other categories stay as they are.`;
+}
 
 export default async function CategoryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -61,7 +70,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
           </ActionButton>
         )}
         {category.status === "OPEN" && (
-          <ActionButton action={setCategoryStatus.bind(null, id, "CLOSED" as const)} variant="primary" confirm={submitted.size < judges.length ? `Only ${submitted.size} of ${judges.length} judges submitted. Close anyway?` : "Close this category? Judges will no longer be able to change scores."}>
+          <ActionButton action={setCategoryStatus.bind(null, id, "CLOSED" as const)} variant="primary" confirm={closeQuestion(results)}>
             Close category
           </ActionButton>
         )}
@@ -114,7 +123,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
               <div key={e.id} className="flex items-center gap-3 py-2">
                 <EntryNumber entryId={e.id} number={e.number} disabled={category.status === "CLOSED"} />
                 <span className="flex-1 font-medium">{e.participant.name}</span>
-                <ActionButton action={removeEntry.bind(null, e.id)} variant="ghost" confirm={`Remove ${e.participant.name} from this category?`}>Remove</ActionButton>
+                <ActionButton action={removeEntry.bind(null, e.id)} variant="ghost" confirm={withdrawQuestion(e.participant.name, rows.find((r) => r.entryId === e.id))}>Remove</ActionButton>
               </div>
             ))}
           </div>

@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { requireJudge } from "@/lib/session";
 import { judgesOfCategory } from "@/lib/judge-access";
 import { ScoreSheet } from "./score-sheet";
+import { AutoRefresh } from "@/components/auto-refresh";
 
 export const dynamic = "force-dynamic";
 
@@ -40,6 +41,7 @@ export default async function JudgeCategory({ params }: { params: Promise<{ cate
         </div>
       </div>
       <ScoreSheet
+        judgeId={judge.id}
         categoryId={category.id}
         readOnly={category.status !== "OPEN"}
         submitted={!!category.sheets[0]?.submittedAt}
@@ -51,6 +53,9 @@ export default async function JudgeCategory({ params }: { params: Promise<{ cate
           scores: Object.fromEntries(e.scores.map((s) => [s.criterionId, s.value])),
         }))}
       />
+      {/* A late dancer, a new running order or a withdrawal reaches the
+          tablet on its own; taps already made stay on screen (ScoreSheet). */}
+      <AutoRefresh seconds={15} />
     </main>
   );
 }
