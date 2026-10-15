@@ -5,13 +5,14 @@ import { Badge, Brand, Card } from "@/components/ui";
 import { requirePublicAccess } from "@/lib/public-access";
 import { categoryResults } from "@/lib/results";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { pageStamp } from "@/lib/stamp-server";
 
 export const dynamic = "force-dynamic";
 
 export default async function PublicCategory({ params }: { params: Promise<{ categoryId: string }> }) {
   const { categoryId } = await params;
   const { event } = await requirePublicAccess();
-  const results = await categoryResults(categoryId);
+  const [results, stamp] = await Promise.all([categoryResults(categoryId), pageStamp({ category: categoryId }, "public")]);
   if (!results || results.category.eventId !== event.id) notFound();
   if (!results.category.resultsVisible) notFound();
   const { category } = results;
@@ -36,7 +37,7 @@ export default async function PublicCategory({ params }: { params: Promise<{ cat
       <div className="mt-4">
         <HowRankingWorks criteria={results.criteria} />
       </div>
-      {category.status === "OPEN" && <AutoRefresh seconds={20} />}
+      {category.status === "OPEN" && <AutoRefresh seconds={20} watch={{ category: categoryId }} scores="public" stamp={stamp} />}
     </main>
   );
 }

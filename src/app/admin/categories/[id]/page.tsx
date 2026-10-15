@@ -12,6 +12,7 @@ import { closeQuestion } from "@/lib/close-check";
 import { EntryNumber } from "./entry-number";
 import { TieDecider } from "./tie-decider";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { pageStamp } from "@/lib/stamp-server";
 
 // Withdrawing a dancer from this category only; say if scores go with her.
 function withdrawQuestion(name: string, row: { judges: { byCriterion: (number | null)[] }[] } | undefined): string {
@@ -24,7 +25,7 @@ function withdrawQuestion(name: string, row: { judges: { byCriterion: (number | 
 export default async function CategoryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   await requireAdmin();
-  const results = await categoryResults(id);
+  const [results, stamp] = await Promise.all([categoryResults(id), pageStamp({ category: id }, "all")]);
   if (!results) notFound();
   const { category, judges, rows } = results;
   const [levels, participants, eventJudges] = await Promise.all([
@@ -204,7 +205,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
           </Card>
         </div>
       </div>
-      {category.status === "OPEN" && <AutoRefresh seconds={15} />}
+      {category.status === "OPEN" && <AutoRefresh seconds={15} watch={{ category: id }} scores="all" stamp={stamp} />}
     </>
   );
 }

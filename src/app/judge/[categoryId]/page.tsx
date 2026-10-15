@@ -6,6 +6,7 @@ import { requireJudge } from "@/lib/session";
 import { judgesOfCategory } from "@/lib/judge-access";
 import { ScoreSheet } from "./score-sheet";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { pageStamp } from "@/lib/stamp-server";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,10 @@ export default async function JudgeCategory({ params }: { params: Promise<{ cate
   });
   if (!category || category.eventId !== judge.eventId || category.status === "DRAFT") notFound();
   if (!(await db.judge.findFirst({ where: { id: judge.id, ...judgesOfCategory(categoryId) } }))) notFound();
-  const criteria = await db.criterion.findMany({ where: { eventId: judge.eventId }, orderBy: { priority: "asc" } });
+  const [criteria, stamp] = await Promise.all([
+    db.criterion.findMany({ where: { eventId: judge.eventId }, orderBy: { priority: "asc" } }),
+    pageStamp({ category: categoryId }, "none"),
+  ]);
 
   return (
     <main className="mx-auto max-w-3xl p-4 sm:p-6">
@@ -54,8 +58,9 @@ export default async function JudgeCategory({ params }: { params: Promise<{ cate
         }))}
       />
       {/* A late dancer, a new running order or a withdrawal reaches the
-          tablet on its own; taps already made stay on screen (ScoreSheet). */}
-      <AutoRefresh seconds={15} />
+          tablet on its own; taps already made stay on screen (ScoreSheet).
+          Other judges' scores do not count as a change here. */}
+      <AutoRefresh seconds={15} watch={{ category: categoryId }} scores="none" stamp={stamp} />
     </main>
   );
 }

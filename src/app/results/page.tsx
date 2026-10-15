@@ -3,6 +3,7 @@ import { Badge, Brand, Card, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requirePublicAccess } from "@/lib/public-access";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { pageStamp } from "@/lib/stamp-server";
 import { championshipCategories, eventResults } from "@/lib/results";
 import { FindMe, type Person } from "./find-me";
 
@@ -28,7 +29,7 @@ export default async function ResultsHome() {
   // Every published place, grouped by person, for the name search. This
   // page shows the same to everyone: an admin only skips the password.
   const published = levels.flatMap((l) => l.categories.filter((c) => c.resultsVisible));
-  const results = await eventResults(event.id);
+  const [results, stamp] = await Promise.all([eventResults(event.id), pageStamp({ event: event.id }, "public")]);
   const byPerson = new Map<string, Person>();
   for (const c of published) {
     const r = results.get(c.id);
@@ -74,7 +75,7 @@ export default async function ResultsHome() {
           </section>
         ))}
       </div>
-      <AutoRefresh seconds={60} />
+      <AutoRefresh seconds={60} watch={{ event: event.id }} scores="public" stamp={stamp} />
     </main>
   );
 }

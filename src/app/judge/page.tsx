@@ -5,6 +5,7 @@ import { Badge, Brand, Card, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requireJudge } from "@/lib/session";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { pageStamp } from "@/lib/stamp-server";
 import { categoriesOfJudge } from "@/lib/judge-access";
 
 export const dynamic = "force-dynamic";
@@ -12,7 +13,7 @@ export const dynamic = "force-dynamic";
 export default async function JudgeHome() {
   const judge = await requireJudge();
   const me = await db.judge.findUnique({ where: { id: judge.id } });
-  const [event, categories, criteriaCount] = await Promise.all([
+  const [event, categories, criteriaCount, stamp] = await Promise.all([
     db.event.findUnique({ where: { id: judge.eventId } }),
     db.category.findMany({
       where: { eventId: judge.eventId, status: { in: ["OPEN", "CLOSED"] }, ...(me ? categoriesOfJudge(me) : { id: "none" }) },
@@ -25,6 +26,7 @@ export default async function JudgeHome() {
       orderBy: [{ status: "asc" }, { level: { sortOrder: "asc" } }, { sortOrder: "asc" }],
     }),
     db.criterion.count({ where: { eventId: judge.eventId } }),
+    pageStamp({ event: judge.eventId }, "none"),
   ]);
   const open = categories.filter((c) => c.status === "OPEN");
   const closed = categories.filter((c) => c.status === "CLOSED");
@@ -78,7 +80,7 @@ export default async function JudgeHome() {
           <div className="space-y-3">{list(closed)}</div>
         </>
       )}
-      <AutoRefresh seconds={30} />
+      <AutoRefresh seconds={30} watch={{ event: judge.eventId }} scores="none" stamp={stamp} />
     </main>
   );
 }

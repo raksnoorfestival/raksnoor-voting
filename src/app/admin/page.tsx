@@ -5,12 +5,13 @@ import { requireAdmin } from "@/lib/session";
 import { currentEvent } from "@/lib/event";
 import { NoEvent } from "./no-event";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { pageStamp } from "@/lib/stamp-server";
 
 export default async function Dashboard() {
   await requireAdmin();
   const event = await currentEvent();
   if (!event) return <NoEvent />;
-  const [levels, judges, criteriaCount, participants] = await Promise.all([
+  const [levels, judges, criteriaCount, participants, stamp] = await Promise.all([
     db.level.findMany({
       where: { eventId: event.id },
       include: {
@@ -24,6 +25,7 @@ export default async function Dashboard() {
     db.judge.findMany({ where: { eventId: event.id, active: true } }),
     db.criterion.count({ where: { eventId: event.id } }),
     db.participant.count({ where: { eventId: event.id } }),
+    pageStamp({ event: event.id }, "all"),
   ]);
   const categories = levels.flatMap((l) => l.categories);
   const open = categories.filter((c) => c.status === "OPEN");
@@ -97,7 +99,7 @@ export default async function Dashboard() {
           </Card>
         ))}
       </div>
-      {open.length > 0 && <AutoRefresh seconds={15} />}
+      {open.length > 0 && <AutoRefresh seconds={15} watch={{ event: event.id }} scores="all" stamp={stamp} />}
     </>
   );
 }
