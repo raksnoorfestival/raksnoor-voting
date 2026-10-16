@@ -21,15 +21,20 @@ export default async function JudgeHome() {
         level: true,
         _count: { select: { entries: true } },
         sheets: { where: { judgeId: judge.id } },
-        entries: { select: { _count: { select: { scores: { where: { judgeId: judge.id } } } } } },
+        entries: { select: { number: true, _count: { select: { scores: { where: { judgeId: judge.id } } } } } },
       },
       orderBy: [{ status: "asc" }, { level: { sortOrder: "asc" } }, { sortOrder: "asc" }],
     }),
     db.criterion.count({ where: { eventId: judge.eventId } }),
     pageStamp({ event: judge.eventId }, "none"),
   ]);
-  const open = categories.filter((c) => c.status === "OPEN");
-  const closed = categories.filter((c) => c.status === "CLOSED");
+  // In the order they are danced: the running order numbers of the lineup
+  // go up through the day, so a category comes where its first dancer is.
+  // A category with nobody in it goes last.
+  const firstOnStage = (c: (typeof categories)[number]) => Math.min(Infinity, ...c.entries.map((e) => e.number));
+  const byRunningOrder = (a: (typeof categories)[number], b: (typeof categories)[number]) => firstOnStage(a) - firstOnStage(b);
+  const open = categories.filter((c) => c.status === "OPEN").sort(byRunningOrder);
+  const closed = categories.filter((c) => c.status === "CLOSED").sort(byRunningOrder);
 
   const progress = (c: (typeof categories)[number]) => {
     const done = c.entries.filter((e) => e._count.scores >= criteriaCount).length;
