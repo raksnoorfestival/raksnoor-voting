@@ -103,6 +103,9 @@ export function ScoreSheet({
           r = await saveScore(entryId, criterionId, v);
         } catch {
           setOffline(true);
+          // Maybe not the network but an old page after a new build:
+          // UpdateWatch checks at once and reloads if so (scores kept).
+          window.dispatchEvent(new Event("rn-save-failed"));
           return;
         }
         setOffline(false);

@@ -8,6 +8,17 @@ import { useEffect } from "react";
 // to type that has been touched: a field with focus, or one whose value
 // differs from what the page loaded with. Score buttons save on every tap,
 // so a reload there loses nothing.
+//
+// It DOES reload with scores still waiting to be sent. On 16 October 2026 it
+// did not, and that locked a judge's tablet: a page from the old build can
+// no longer send to the new one, so its scores could never leave, so it
+// never reloaded, and it showed "No connection" with the wifi working. The
+// waiting scores are safe in the tablet's storage and the score sheet sends
+// them as it opens; and the build question just got an answer, so the
+// network is there for the reload.
+//
+// A failed save asks at once ("rn-save-failed", from the score sheet)
+// instead of waiting for the next minute.
 export function UpdateWatch({ version }: { version: string }) {
   useEffect(() => {
     if (version === "dev") return;
@@ -21,12 +32,12 @@ export function UpdateWatch({ version }: { version: string }) {
       }
       return false;
     };
-    // A judge tablet with scores still waiting to be sent (the hall's wifi
-    // dropped) does not reload: they are safe in storage, but a reload now
-    // could land on the browser's own "no connection" page.
-    const scoresWaiting = () => {
+    // One reload per new build: if the page comes back still old (a cached
+    // copy), it waits for the next build instead of reloading in a loop.
+    const alreadyTried = (live: string) => {
       try {
-        for (let i = 0; i < localStorage.length; i++) if (localStorage.key(i)?.startsWith("rn-pending:")) return true;
+        if (sessionStorage.getItem("rn-reloaded-for") === live) return true;
+        sessionStorage.setItem("rn-reloaded-for", live);
       } catch {}
       return false;
     };
@@ -37,7 +48,7 @@ export function UpdateWatch({ version }: { version: string }) {
         const r = await fetch("/version.json", { cache: "no-store" });
         if (!r.ok) return;
         const { version: live } = await r.json();
-        if (!stopped && live && live !== version && !typing() && !scoresWaiting()) window.location.reload();
+        if (!stopped && live && live !== version && !typing() && !alreadyTried(live)) window.location.reload();
       } catch {
         // Offline or a hiccup: try again next minute.
       }
@@ -49,10 +60,12 @@ export function UpdateWatch({ version }: { version: string }) {
       if (document.visibilityState === "visible") check();
     };
     document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("rn-save-failed", check);
     return () => {
       stopped = true;
       clearInterval(id);
       document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("rn-save-failed", check);
     };
   }, [version]);
   return null;
