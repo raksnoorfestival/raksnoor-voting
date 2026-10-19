@@ -53,6 +53,12 @@ export function AdminNav({ adminName, eventName }: { adminName: string; eventNam
             <button className="rounded-md border border-white/30 px-2 py-1 text-xs">Sign out</button>
           </form>
         </div>
+        {/* Who made the app: only in the menu, never on public pages. */}
+        <div className="mt-6 px-3 pb-2">
+          <div className="text-[10px] uppercase tracking-wider text-white/50">App developed by</div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/miguel-oliveira.png" alt="Miguel Oliveira" width={98} height={48} className="mt-1.5 h-12 w-auto opacity-90" />
+        </div>
       </nav>
     </aside>
   );
