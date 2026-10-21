@@ -9,3 +9,10 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# The keeper of the judge's offline copies (public/sw.js): always asked
+# fresh, so a fix reaches the tablets with the next page they open.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
