@@ -7,6 +7,7 @@ import { judgesOfCategory } from "@/lib/judge-access";
 import { ScoreSheet } from "./score-sheet";
 import { AutoRefresh } from "@/components/auto-refresh";
 import { pageStamp } from "@/lib/stamp-server";
+import { KeepOffline } from "@/components/offline-copies";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +45,7 @@ export default async function JudgeCategory({ params }: { params: Promise<{ cate
           {category.status === "CLOSED" ? <Badge tone="closed">Closed, read only</Badge> : <Badge tone="open">Open</Badge>}
         </div>
       </div>
+      <KeepOffline judgeId={judge.id} except={category.id} paths={[`/judge/${category.id}`]} />
       <ScoreSheet
         judgeId={judge.id}
         categoryId={category.id}

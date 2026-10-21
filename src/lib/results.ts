@@ -25,7 +25,14 @@ function build(category: LoadedCategory, candidates: Judge[], criteria: Criterio
   const ranked = rankEntries(category.entries, judges, criteria, scores);
   const byEntry = new Map(category.entries.map((e) => [e.id, e]));
   const rows = ranked.map((r) => ({ ...r, entry: byEntry.get(r.entryId)! }));
-  return { category, judges, criteria, rows, ranked };
+  // When each judge last reached the server in this category: a tablet
+  // without connection keeps scores and sends them later (public/sw.js).
+  const lastScoreAt: Record<string, string> = {};
+  for (const s of scores) {
+    const at = s.updatedAt.toISOString();
+    if (!lastScoreAt[s.judgeId] || at > lastScoreAt[s.judgeId]) lastScoreAt[s.judgeId] = at;
+  }
+  return { category, judges, criteria, rows, ranked, lastScoreAt };
 }
 
 // Everything a results screen needs for one category, in one query set.

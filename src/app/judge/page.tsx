@@ -7,6 +7,7 @@ import { requireJudge } from "@/lib/session";
 import { AutoRefresh } from "@/components/auto-refresh";
 import { pageStamp } from "@/lib/stamp-server";
 import { categoriesOfJudge } from "@/lib/judge-access";
+import { KeepOffline } from "@/components/offline-copies";
 
 export const dynamic = "force-dynamic";
 
@@ -74,6 +75,9 @@ export default async function JudgeHome() {
           <ActionButton action={logout.bind(null, "judge")} variant="ghost">Sign out</ActionButton>
         </div>
       </header>
+      {/* The list and every open category kept on the tablet now, while
+          there is a connection: if the wifi drops later, they still open. */}
+      <KeepOffline judgeId={judge.id} paths={["/judge", ...open.map((c) => `/judge/${c.id}`)]} />
       <Title sub={event?.name}>Your categories</Title>
       {open.length === 0 && (
         <Card className="text-sm text-neutral-600">No category is open right now. This page refreshes when the organisation opens one.</Card>

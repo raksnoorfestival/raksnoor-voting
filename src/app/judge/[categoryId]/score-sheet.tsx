@@ -4,37 +4,11 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { saveScore, submitSheet } from "@/actions/scores";
 import { Button, Card, Notice } from "@/components/ui";
+import { offlineCopyAt } from "@/components/offline-copies";
+import { FINAL, markSent, readPending, readSent, sentKey, storeKey, writePending, type Values } from "@/lib/tablet-store";
 
 type Criterion = { id: string; name: string; maxPoints: number };
 type Entry = { id: string; number: number; name: string; scores: Record<string, number> };
-
-// A score is "entryId|criterionId" -> value; null means cleared.
-type Values = Record<string, number | null>;
-
-// Scores waiting to reach the server, kept on the tablet itself so a drop in
-// the hall's wifi, a reload, a closed tab or an app update loses nothing.
-// One per dancer and criterion: the last tap wins.
-const storeKey = (judgeId: string, categoryId: string) => `rn-pending:${judgeId}:${categoryId}`;
-function readPending(k: string): Values {
-  try {
-    return JSON.parse(localStorage.getItem(k) ?? "{}") as Values;
-  } catch {
-    return {};
-  }
-}
-function writePending(k: string, p: Values) {
-  try {
-    if (Object.keys(p).length) localStorage.setItem(k, JSON.stringify(p));
-    else localStorage.removeItem(k);
-  } catch {
-    // Storage blocked (private mode): the scores still go out while online.
-  }
-}
-
-// Answers that will not get better by trying again: the score leaves the
-// queue and the judge is told. Anything else (no network, a server hiccup,
-// an expired session) keeps it waiting.
-const FINAL = ["This category is closed.", "You are not on the panel of this category.", "Unknown entry.", "Unknown criterion."];
 
 export function ScoreSheet({
   judgeId,
@@ -52,6 +26,7 @@ export function ScoreSheet({
   submitted: boolean;
 }) {
   const k = storeKey(judgeId, categoryId);
+  const sk = sentKey(judgeId, categoryId);
   const router = useRouter();
   // What this tablet has tapped since the page opened, sent or not. It sits
   // on top of what the server sends, so a refresh of the page (late dancer,
@@ -110,6 +85,7 @@ export function ScoreSheet({
         }
         setOffline(false);
         if (r.ok) {
+          markSent(sk, key, v);
           setSessionGone(false);
           setError(null);
         } else if (FINAL.includes(r.error)) {
@@ -129,18 +105,24 @@ export function ScoreSheet({
     } finally {
       flushing.current = false;
     }
-  }, [setQueue]);
+  }, [setQueue, sk]);
 
   // On opening: whatever this tablet still holds goes on screen (it is newer
   // than the server's copy) and is sent.
   useEffect(() => {
+    // A copy kept on the tablet: what was sent after it was kept goes on top.
+    const copyAt = offlineCopyAt();
+    if (copyAt) {
+      const later = Object.fromEntries(Object.entries(readSent(sk)).filter(([, e]) => e.at > copyAt).map(([x, e]) => [x, e.v]));
+      if (Object.keys(later).length) setLocal((l) => ({ ...later, ...l }));
+    }
     const saved = readPending(k);
     if (Object.keys(saved).length) {
       setLocal((l) => ({ ...l, ...saved }));
       setQueue(saved);
       flush();
     }
-  }, [k, flush, setQueue]);
+  }, [k, sk, flush, setQueue]);
 
   // Keep trying while something is waiting: every few seconds, when the
   // browser says the network is back, and when the tablet wakes up.

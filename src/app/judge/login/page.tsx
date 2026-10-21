@@ -3,6 +3,7 @@ import { StateForm, SubmitButton } from "@/components/forms";
 import { Brand, Card, Field, Input } from "@/components/ui";
 import { getJudge } from "@/lib/session";
 import { redirect } from "next/navigation";
+import { ForgetCopies } from "@/components/offline-copies";
 
 export default async function JudgeLogin() {
   if (await getJudge()) redirect("/judge");
@@ -23,6 +24,7 @@ export default async function JudgeLogin() {
         </StateForm>
       </Card>
       <a href="/" className="text-xs text-neutral-500">Back</a>
+      <ForgetCopies />
     </main>
   );
 }
