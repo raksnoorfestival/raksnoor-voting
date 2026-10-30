@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { criteriaFor, type ScopedCriterion } from "@/lib/criteria";
 import { rankEntries, rankChampionship, type RankedEntry, type ChampionRow } from "@/lib/ranking";
 import { judgesOfCategory, judgeCoversCategory } from "@/lib/judge-access";
 import type { Category, Criterion, Entry, Judge, JudgeSheet, Level, Participant, Score } from "@prisma/client";
@@ -19,7 +20,9 @@ function withScorers(assigned: Judge[], everyone: Judge[], scores: Score[]): Jud
   const ids = new Set(assigned.map((j) => j.id));
   return everyone.filter((j) => ids.has(j.id) || scored.has(j.id));
 }
-function build(category: LoadedCategory, candidates: Judge[], criteria: Criterion[], scores: Score[]) {
+function build(category: LoadedCategory, candidates: Judge[], allCriteria: (Criterion & ScopedCriterion)[], scores: Score[]) {
+  // Only what is scored in this category (lib/criteria.ts).
+  const criteria = criteriaFor(category.id, allCriteria);
   const scored = new Set(scores.map((s) => s.judgeId));
   const judges = category.status === "CLOSED" ? candidates.filter((j) => scored.has(j.id)) : candidates;
   const ranked = rankEntries(category.entries, judges, criteria, scores);
@@ -42,7 +45,7 @@ export async function categoryResults(categoryId: string) {
   const [assigned, everyone, criteria, scores] = await Promise.all([
     db.judge.findMany({ where: { eventId: category.eventId, ...judgesOfCategory(categoryId) }, orderBy: { sortOrder: "asc" } }),
     db.judge.findMany({ where: { eventId: category.eventId }, orderBy: { sortOrder: "asc" } }),
-    db.criterion.findMany({ where: { eventId: category.eventId }, orderBy: { priority: "asc" } }),
+    db.criterion.findMany({ where: { eventId: category.eventId }, include: { categories: { select: { id: true } } }, orderBy: { priority: "asc" } }),
     db.score.findMany({ where: { entry: { categoryId } } }),
   ]);
   return build(category, withScorers(assigned, everyone, scores), criteria, scores);
@@ -61,7 +64,7 @@ export async function eventResults(eventId: string): Promise<Map<string, Categor
       include: { level: true, entries: { include: { participant: true }, orderBy: { number: "asc" } }, sheets: true },
     }),
     db.judge.findMany({ where: { eventId }, include: { categories: true }, orderBy: { sortOrder: "asc" } }),
-    db.criterion.findMany({ where: { eventId }, orderBy: { priority: "asc" } }),
+    db.criterion.findMany({ where: { eventId }, include: { categories: { select: { id: true } } }, orderBy: { priority: "asc" } }),
     db.score.findMany({ where: { entry: { category: { eventId } } } }),
   ]);
   const categoryOfEntry = new Map(categories.flatMap((c) => c.entries.map((e) => [e.id, c.id] as const)));

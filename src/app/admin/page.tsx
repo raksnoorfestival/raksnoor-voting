@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { criteriaFor } from "@/lib/criteria";
 import { Badge, Card, Title } from "@/components/ui";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
@@ -11,7 +12,7 @@ export default async function Dashboard() {
   await requireAdmin();
   const event = await currentEvent();
   if (!event) return <NoEvent />;
-  const [levels, judges, criteriaCount, participants, stamp] = await Promise.all([
+  const [levels, judges, criteria, participants, stamp] = await Promise.all([
     db.level.findMany({
       where: { eventId: event.id },
       include: {
@@ -23,13 +24,15 @@ export default async function Dashboard() {
       orderBy: { sortOrder: "asc" },
     }),
     db.judge.findMany({ where: { eventId: event.id, active: true } }),
-    db.criterion.count({ where: { eventId: event.id } }),
+    db.criterion.findMany({ where: { eventId: event.id }, include: { categories: { select: { id: true } } }, }),
     db.participant.count({ where: { eventId: event.id } }),
     pageStamp({ event: event.id }, "all"),
   ]);
   const categories = levels.flatMap((l) => l.categories);
   const open = categories.filter((c) => c.status === "OPEN");
-  const expectedPerCategory = (entries: number) => entries * judges.length * criteriaCount;
+  const criteriaCount = criteria.length;
+  // Each category has its own criteria (lib/criteria.ts).
+  const expectedPerCategory = (categoryId: string, entries: number) => entries * judges.length * criteriaFor(categoryId, criteria).length;
 
   return (
     <>
@@ -58,7 +61,7 @@ export default async function Dashboard() {
       <div className="mb-6 space-y-2">
         {open.map((c) => {
           const scored = c.entries.reduce((a, e) => a + e._count.scores, 0);
-          const expected = expectedPerCategory(c._count.entries);
+          const expected = expectedPerCategory(c.id, c._count.entries);
           const done = c.sheets.filter((s) => s.submittedAt).length;
           return (
             <Link key={c.id} href={`/admin/categories/${c.id}`} className="block rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-wine">

@@ -58,24 +58,26 @@ enum CategoryStatus {
 }
 
 model Category {
-  id             String         @id @default(cuid())
-  eventId        String
-  levelId        String
-  name           String
-  sortOrder      Int            @default(0)
-  status         CategoryStatus @default(DRAFT)
+  id                    String         @id @default(cuid())
+  eventId               String
+  levelId               String
+  name                  String
+  sortOrder             Int            @default(0)
+  status                CategoryStatus @default(DRAFT)
   // Results reach the public page only when the admin flips this.
-  resultsVisible Boolean        @default(false)
+  resultsVisible        Boolean        @default(false)
   // Whether this category is one of the level's championship categories.
   // Off for an extra (Master Fusion in 2026): it neither adds places nor
   // makes it compulsory to have danced it to be eligible.
-  countsForChampionship Boolean @default(true)
+  countsForChampionship Boolean        @default(true)
 
-  event   Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  level   Level           @relation(fields: [levelId], references: [id], onDelete: Cascade)
-  entries Entry[]
-  sheets  JudgeSheet[]
-  judges  JudgeCategory[]
+  event    Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  level    Level           @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  entries  Entry[]
+  sheets   JudgeSheet[]
+  judges   JudgeCategory[]
+  // The criteria scored only in some categories (Criterion.everywhere off).
+  criteria Criterion[]     @relation("CriterionCategories")
 
   @@unique([eventId, levelId, name])
 }
@@ -132,14 +134,19 @@ model Judge {
 // Technique, Choreo & Musicality, Stage Presence, Originality, Image.
 // `priority` (1 = first) is the order used to break ties.
 model Criterion {
-  id        String @id @default(cuid())
-  eventId   String
-  name      String
-  maxPoints Int    @default(10)
-  priority  Int
+  id         String  @id @default(cuid())
+  eventId    String
+  name       String
+  maxPoints  Int     @default(10)
+  priority   Int
+  // Scored in every category, or only in the ones listed (2027: Synchronization
+  // in the groups, Improvisation in Live Band and Improvisation with Drummer;
+  // Miguel, 29 October 2026). Off with none listed counts nowhere.
+  everywhere Boolean @default(true)
 
-  event  Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  scores Score[]
+  event      Event      @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  scores     Score[]
+  categories Category[] @relation("CriterionCategories")
 
   @@unique([eventId, name])
 }
@@ -207,10 +214,10 @@ model LibraryLevel {
 }
 
 model LibraryCategory {
-  id        String @id @default(cuid())
-  levelId   String
-  name      String
-  sortOrder Int    @default(0)
+  id                    String  @id @default(cuid())
+  levelId               String
+  name                  String
+  sortOrder             Int     @default(0)
   countsForChampionship Boolean @default(true)
 
   level LibraryLevel @relation(fields: [levelId], references: [id], onDelete: Cascade)

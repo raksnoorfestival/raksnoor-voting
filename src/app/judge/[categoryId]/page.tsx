@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { criteriaFor } from "@/lib/criteria";
 import { notFound } from "next/navigation";
 import { Badge, Brand } from "@/components/ui";
 import { db } from "@/lib/db";
@@ -24,7 +25,7 @@ export default async function JudgeCategory({ params }: { params: Promise<{ cate
   if (!category || category.eventId !== judge.eventId || category.status === "DRAFT") notFound();
   if (!(await db.judge.findFirst({ where: { id: judge.id, ...judgesOfCategory(categoryId) } }))) notFound();
   const [criteria, stamp] = await Promise.all([
-    db.criterion.findMany({ where: { eventId: judge.eventId }, orderBy: { priority: "asc" } }),
+    db.criterion.findMany({ where: { eventId: judge.eventId }, include: { categories: { select: { id: true } } }, orderBy: { priority: "asc" } }).then((all) => criteriaFor(categoryId, all)),
     pageStamp({ category: categoryId }, "none"),
   ]);
 
