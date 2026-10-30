@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { criteriaFor } from "@/lib/criteria";
 import { logout } from "@/actions/auth";
 import { ActionButton } from "@/components/forms";
 import { Badge, Brand, Card, Title } from "@/components/ui";
@@ -14,7 +15,7 @@ export const dynamic = "force-dynamic";
 export default async function JudgeHome() {
   const judge = await requireJudge();
   const me = await db.judge.findUnique({ where: { id: judge.id } });
-  const [event, categories, criteriaCount, stamp] = await Promise.all([
+  const [event, categories, criteria, stamp] = await Promise.all([
     db.event.findUnique({ where: { id: judge.eventId } }),
     db.category.findMany({
       where: { eventId: judge.eventId, status: { in: ["OPEN", "CLOSED"] }, ...(me ? categoriesOfJudge(me) : { id: "none" }) },
@@ -26,7 +27,7 @@ export default async function JudgeHome() {
       },
       orderBy: [{ status: "asc" }, { level: { sortOrder: "asc" } }, { sortOrder: "asc" }],
     }),
-    db.criterion.count({ where: { eventId: judge.eventId } }),
+    db.criterion.findMany({ where: { eventId: judge.eventId }, include: { categories: { select: { id: true } } }, }),
     pageStamp({ event: judge.eventId }, "none"),
   ]);
   // In the order they are danced: the running order numbers of the lineup
@@ -38,7 +39,7 @@ export default async function JudgeHome() {
   const closed = categories.filter((c) => c.status === "CLOSED").sort(byRunningOrder);
 
   const progress = (c: (typeof categories)[number]) => {
-    const done = c.entries.filter((e) => e._count.scores >= criteriaCount).length;
+    const done = c.entries.filter((e) => e._count.scores >= criteriaFor(c.id, criteria).length).length;
     return { done, total: c._count.entries, submitted: !!c.sheets[0]?.submittedAt };
   };
 

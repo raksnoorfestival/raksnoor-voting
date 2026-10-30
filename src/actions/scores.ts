@@ -3,6 +3,7 @@
 import { db } from "@/lib/db";
 import { getJudge, renewJudgeSession } from "@/lib/session";
 import { judgesOfCategory } from "@/lib/judge-access";
+import { criteriaFor } from "@/lib/criteria";
 
 // One tap, one row. The sheet saves as the judge goes, so a dead battery or
 // a lost connection costs one score, not a category.
@@ -15,8 +16,9 @@ export async function saveScore(entryId: string, criterionId: string, value: num
   if (!entry || entry.category.eventId !== judge.eventId) return { ok: false, error: "Unknown entry." };
   if (entry.category.status !== "OPEN") return { ok: false, error: "This category is closed." };
   if (!(await db.judge.findFirst({ where: { id: judge.id, ...judgesOfCategory(entry.categoryId) } }))) return { ok: false, error: "You are not on the panel of this category." };
-  const criterion = await db.criterion.findUnique({ where: { id: criterionId } });
-  if (!criterion || criterion.eventId !== judge.eventId) return { ok: false, error: "Unknown criterion." };
+  const criterion = await db.criterion.findUnique({ where: { id: criterionId }, include: { categories: { select: { id: true } } } });
+  // Not scored in this category (Synchronization outside the groups): refused.
+  if (!criterion || criterion.eventId !== judge.eventId || !criteriaFor(entry.categoryId, [criterion]).length) return { ok: false, error: "Unknown criterion." };
   if (value === null) {
     await db.score.deleteMany({ where: { entryId, judgeId: judge.id, criterionId } });
     await renewJudgeSession(judge);

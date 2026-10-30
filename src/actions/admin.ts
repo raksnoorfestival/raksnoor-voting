@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { SCOPED_DEFAULTS } from "@/lib/criteria";
 import { redirect } from "next/navigation";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
@@ -59,6 +60,13 @@ export async function createEvent(_: FormState, form: FormData): Promise<FormSta
     for (const j of source) await db.judge.create({ data: { eventId: event.id, name: j.name, passwordHash: j.passwordHash, sortOrder: j.sortOrder, active: j.active } });
     if (source.length) copied += ` ${source.length} judges copied, same passwords as before.`;
   }
+  // Synchronization and Improvisation, only where they count (2027 on),
+  // after the five: placed by name, and shown on the criteria page to check.
+  const cats = await db.category.findMany({ where: { eventId: event.id }, select: { id: true, name: true, level: { select: { name: true } } } });
+  for (const [k, d] of SCOPED_DEFAULTS.entries())
+    await db.criterion.create({
+      data: { eventId: event.id, name: d.name, maxPoints: 10, priority: 6 + k, everywhere: false, categories: { connect: cats.filter(d.matches).map((c) => ({ id: c.id })) } },
+    });
   refresh("/admin/events");
   return { ok: `Event "${name}" created.${copied}` };
 }
@@ -442,8 +450,14 @@ export async function updateCriterion(_: FormState, form: FormData): Promise<For
   const id = str(form, "id");
   const name = str(form, "name");
   if (!name) return { error: "Give the criterion a name." };
+  // Where it is scored: everywhere, or only the categories ticked.
+  const everywhere = form.get("everywhere") === "on";
+  const c = await db.criterion.findUnique({ where: { id } });
+  if (!c) return { error: "Criterion not found." };
+  const ids = form.getAll("categoryIds").map(String);
+  const categories = everywhere ? [] : await db.category.findMany({ where: { id: { in: ids }, eventId: c.eventId }, select: { id: true } });
   try {
-    await db.criterion.update({ where: { id }, data: { name, maxPoints: int(form, "maxPoints", 10) || 10 } });
+    await db.criterion.update({ where: { id }, data: { name, maxPoints: int(form, "maxPoints", 10) || 10, everywhere, categories: { set: categories } } });
   } catch (e) {
     return friendly(e, "criterion");
   }
